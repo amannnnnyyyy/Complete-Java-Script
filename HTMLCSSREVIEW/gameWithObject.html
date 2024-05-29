@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="game">
+        <div class="score">
+            <table class="scores">
+                <tr>
+                    <th>Wins</th>
+                    <th>Draws</th>
+                    <th>Loses</th>
+                </tr>
+                <tr>
+                    <th><div class="win">Wins</div></th>
+                    <th><div class="draw">Draws</div></th>
+                    <th><div class="lose">Loses</div></th>
+                </tr>
+            </table>
+            
+        </div>
+    <div class="images">
+        <img title="rock" class="image rock" height="150" width="150" onclick="play('rock')" src="" alt="rock">
+        
+        <img title="paper" class="image paper" height="150" width="150" onclick="play('paper')" src="" alt="paper">
+
+
+        <img title="scissor" class="image scissor" height="150" width="150" onclick="play('scissor')" src="" alt="scissor">
+    </div>
+
+        <button class="newGame" onclick="resetGame()">New Game</button>
+        <button class="newGame" onclick="window.location='./web.html'">End Game</button>
+        <button class="newGame" onclick="window.location='./dom.html'">Go to DOM</button>
+
+    </div>
+    <div class="value">Result</div>
+    <div class="result">
+        <div>You :<img src="" alt="you" class="yourMove" height="50" width="50" ></div>
+    <div>Computer: <img src="" alt="computer" class="computerMove" height="50" width="50" ></div>
+    </div>
+    <script src="./gameWithObject.js"></script>
+</body>
+</html>

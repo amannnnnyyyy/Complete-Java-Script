@@ -1,0 +1,116 @@
+/* Your CSS styles here */
+html{
+    background-color: black;
+}
+.btn {
+    background-color: brown;
+    color: white;
+    border: none;
+  }
+.atc{
+    background-color: aqua;
+}
+  
+  .p {
+    color: white;
+    border: none;
+  }
+  .numberCart{
+    color: red;
+    border: none;
+  }
+  .cart{
+    position: fixed;
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    right: -50px;
+    padding:3px;
+  }
+  .cartImg{
+    width: 20%;
+    height: 20%;
+    border: none;
+    
+  }
+  .numberCart, .cartImg{
+    margin: 0;
+  }
+  .calculator{
+    display: flex;
+    flex-direction:row;
+  }
+  .value-place{
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    right:50px;
+    padding:3px;
+    color:white
+  }
+  
+  .value{
+    display: flex;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    color: aliceblue;
+    justify-content: center;
+  }
+
+  .image{
+    border-radius: 50%;
+  }
+  .score{
+    display: flex;
+    padding: 20px;
+    color: white;
+    background-color:#070f2b;
+    border-color: #071f2A;
+    padding: 0;
+    border: 0;
+    border-style: double;
+  }
+  .scores{
+    display: flex;
+    gap: 50px;
+    color: white;
+    border-style: none;
+  }
+  .game{
+    border-style: double;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .images{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image:hover{
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+    cursor: pointer;
+    border-radius: 50%;
+    border-style: double;
+    border-width: 2px;
+  }
+  .newGame{
+    background-color: blue !important;
+    color: white;
+    border-radius: 10px;
+  }
+  .newGame:hover{
+    background-color: green !important;
+    color: black;
+    size: 200%;
+  }
+
+  .result{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+  }
