@@ -1,0 +1,41 @@
+body{
+    font-family: arial;
+}
+.subscribe{
+    background-color: black !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: bold;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.is-subscribed{
+    background-color: green !important;
+    color: white;
+    size: 200%;
+}
+
+.calculate-btn{
+    background-color: green !important;
+    color: white;
+    font-size: large;
+}
+
+.calculate-btn:hover{
+    background-color: blue !important;
+    color: white;
+}
+
+.input{
+    border-color: blueviolet;
+}
+
+.return{
+    background-color: red;
+    color:white;
+    font-size: medium;
+    font-family: Verdana;
+}

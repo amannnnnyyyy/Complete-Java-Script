@@ -114,3 +114,13 @@ html{
     justify-content: center;
     gap: 50px;
   }
+
+  .you{
+    height: 50px;
+    width: 50px;
+  }
+
+  .computer{
+    height: 50px;
+    width: 50px;
+  }

@@ -11,8 +11,8 @@ let value = 4>3 && document.querySelector('.value');
 let lose = document.querySelector('.lose');
 let win = document.querySelector('.win');
 let draw = document.querySelector('.draw');
-let you = document.getElementsByClassName('.you');
-let computer = document.getElementsByClassName('.computer');
+let you = document.querySelector('.you');
+let computer = document.querySelector('.computer');
 
 function greet(name='there'){
     alert(`Hello ${name}`);
@@ -58,48 +58,64 @@ function calc_game(){
         value.innerHTML = "You Lose: paper wins";
         loses++;
         lose.innerHTML=loses;
-        computer.src = "./assets/paper.jpg";
-        you.src = "./assets/rock.jpg";
+        computer.src = "../assets/paper.jpg";
+        you.src = "../assets/rock.jpg";
     }
     else if(rock && scissors2){
         value.innerHTML = "You Win";
         wins++;
         win.innerHTML=wins;
+        computer.src = "../assets/scissors.jpg";
+        you.src = "../assets/rock.jpg";
     }
     else if(rock && rock2){
         value.innerHTML = "tie";
         draws++;
         draw.innerHTML=draws;
+        computer.src = "../assets/rock.jpg";
+        you.src = "../assets/rock.jpg";
     }
     else if(paper && scissors2){
         value.innerHTML = "You Lose: scissors wins";
         loses++;
         lose.innerHTML=loses;
+        computer.src = "../assets/scissors.jpg";
+        you.src = "../assets/paper.jpg";
     }
     else if(paper && rock2){
         value.innerHTML = "You Win";
         wins++;
         win.innerHTML=wins;
+        computer.src = "../assets/rock.jpg";
+        you.src = "../assets/paper.jpg";
     }
     else if(paper && paper2){
         value.innerHTML = "tie";
         draws++;
         draw.innerHTML=draws;
+        computer.src = "../assets/paper.jpg";
+        you.src = "../assets/paper.jpg";
     }
     else if(scissor && scissors2){
         value.innerHTML = "tie";
         draws++;
         draw.innerHTML=draws;
+        computer.src = "../assets/scissors.jpg";
+        you.src = "../assets/scissors.jpg";
     }
     else if(scissor && rock2){
         value.innerHTML = "You Lose: rock wins";
         loses++;
         lose.innerHTML=loses;
+        computer.src = "../assets/rock.jpg";
+        you.src = "../assets/scissors.jpg";
     }
     else if(scissor && paper2){
         value.innerHTML = "You Win";
         wins++;
         win.innerHTML=wins;
+        computer.src = "../assets/paper.jpg";
+        you.src = "../assets/scissors.jpg";
     }
     else{
         value.innerHTML = "invalid input";

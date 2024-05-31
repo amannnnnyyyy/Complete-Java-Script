@@ -10,15 +10,15 @@ const game= {
     content:{
         rock:{
             name:"Rock",
-            image:"./assets/rock.jpg"
+            image:"../assets/rock.jpg"
         },
         paper:{
             name:"Paper",
-            image:"./assets/paper.jpg"
+            image:"../assets/paper.jpg"
         },
         scissor:{
             name:"Scissor",
-            image:"./assets/scissors.jpg"
+            image:"../assets/scissors.jpg"
         }
     },
     score:JSON.parse(localStorage.getItem("score")) ||{

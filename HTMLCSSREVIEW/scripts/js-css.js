@@ -7,8 +7,10 @@ const subscribe = ()=>{
     if(subBtn.textContent === 'subscribe'){
         subBtn.textContent = 'subscribed';
         subBtn.title = 'you are already subscribed. Click to unsubscribe'
+        subBtn.classList.add('is-subscribed')
     }else{subBtn.textContent = 'subscribe';
     subBtn.title = 'subscribe'
+    subBtn.classList=['subscribe']
     }
 }
 function display(){
