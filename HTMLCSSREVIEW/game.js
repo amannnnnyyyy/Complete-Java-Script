@@ -17,9 +17,7 @@ let computer = document.getElementsByClassName('.computer');
 function greet(name='there'){
     alert(`Hello ${name}`);
 }
-// greet('Aman');
-// greet('Simon')
-// greet();
+
 function getRandomNumber() {
     const randomDecimal = Math.random();
     const randomNumber = 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS+CSS</title>
+</head>
+<body>
+    <h1 class="sub-title"></h1>
+    <button title="subscribe" class="subscribe" onclick="subscribe()">subscribe</button>
+    <br><br>
+    <h1 class="ama-title"></h1>
+    <h5>Orders under <strong class="price">$40</strong> = <strong class="calculation">+$10</strong> shipping</h5>
+
+    <h5>Orders over <strong class="over-price">$40</strong> = <strong class="over-calculation">+$10</strong> shipping</h5>
+
+    <input type="number" class="input" placeholder="cost of order" value="" onkeydown="calculateKey(event)">
+    <button class="calculate-btn" onclick="calculate()">calculate</button>
+    <br><br>
+    <button onclick="window.location='./gameWithObject.html'">return to game</button>
+    <div class="result">
+        <h4 class="setResult"></h4>
+    </div>
+    <script src="./js-css.js"></script>
+</body>
+</html>

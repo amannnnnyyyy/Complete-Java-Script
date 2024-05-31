@@ -1,15 +1,23 @@
 const messageDiv = document.querySelector('.message'); 
 const btn = document.querySelector('.btn');
+const atc = document.querySelector('.atc');
 const cart = document.querySelector('.numberCart');
 const equals = document.querySelector('.value');
 let clicked =0;
 function buy(){
-    alert("bought");
+    btn.textContent = 'bought';
+    setTimeout(()=>{
+        btn.innerHTML='Buy Now'},1000);
+    clicked = 0;
+    cart.innerHTML = 0;
 }
 function addToCart(){
-    alert("added to cart");
+    // alert("added to cart");
     clicked++;
     cart.innerHTML = clicked;
+    atc.textContent = 'added';
+    setTimeout(()=>{
+        atc.textContent='Add to cart'},1000);
 }
 function buying(){
     messageDiv.innerHTML = "you are trying to buy";
@@ -72,7 +80,7 @@ calculation += '9';
 function zero(){
     if(!filled)
         firstNo += 0;
-    else{secondNo +=0;}
+    else{secondNo += 0;}
 
     console.log("firstNo: " + firstNo);
     console.log("secondNo: " + secondNo);
