@@ -46,8 +46,7 @@ function renderToDoList() {
   totalToDoHTML = ''; // Clear existing HTML
     let html;
     for (let i = 0; i < todo.length; i++) {
-      const {todoList} = todo[i];
-      const {date} = todo[i];
+      const {todoList,date} = todo[i];
     if(todoList.length > 0 && todoList!==null && todoList !==''){
        html = `
     <p> ${todoList} ${date}</p>
