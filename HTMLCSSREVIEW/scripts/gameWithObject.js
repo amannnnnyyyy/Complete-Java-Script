@@ -183,7 +183,7 @@ function autoplay(){
     player1.textContent="computer 1"
     player2.textContent="computer 2"
     autoplayB.onclick = stop_autoplay;
-    autoplayId=setInterval(for_autoplay,5000);
+    autoplayId=setInterval(for_autoplay,2000);
 }
 
 function stop_autoplay(){
