@@ -4,6 +4,9 @@ let lose = document.querySelector(".lose")
 let computer = document.querySelector(".yourMove")
 let you = document.querySelector(".computerMove")
 let value = document.querySelector(".value")
+let autoplayB = document.querySelector(".autoplay")
+let player1 = document.querySelector(".player1")
+let player2 = document.querySelector(".player2")
 
 const game= {
     name:"ROCK PAPER SCISSORS",
@@ -78,13 +81,16 @@ function newGame(){
 
 newGame();
 
-setDetail=(you,computer,status)=>{
+setDetail=(you,computer,status,player,player2)=>{
     if(status=="win"){
-        value.innerHTML = `You Win`;
+        if(player2==="Computer"){
+            value.innerHTML = 'You Win';
+        }else
+        value.innerHTML =`${player2} Lost ${player} wins with ${you}`;
         game.score.wins++;
         win.innerHTML=game.score.wins;
     }else if(status == "lose"){
-        value.innerHTML = `You Lose ${computer} wins`;
+        value.innerHTML = `${player} Lost ${player2} wins with ${computer}`;
         game.score.loses++;
         lose.innerHTML=game.score.loses;
     }else{
@@ -93,49 +99,52 @@ setDetail=(you,computer,status)=>{
         draw.innerHTML=game.score.draws;
     }
 }
-function calc_game(){
+function calc_game(play1="you",play2="computer"){
+    let player = play1==="you"?"You":"Computer 1"
+    let player2 = play2==="computer"?"Computer":"Computer 2"
     if(game.player.rock && game.computer.paper){
-        setDetail("rock","paper","lose")
-        computer.src = game.content.paper.image;
-        you.src = game.content.rock.image;
+        setDetail("rock","paper","lose",player,player2)
+        you.src = game.content.paper.image;
+        computer.src = game.content.rock.image;
     }
     else if(game.player.rock && game.computer.scissor){
-        setDetail("rock","scissor","win")
-        computer.src = game.content.scissor.image;
-        you.src = game.content.rock.image;
+        console.log("sending ",player," ",player2)
+        setDetail("rock","scissor","win",player,player2)
+        you.src = game.content.scissor.image;
+        computer.src = game.content.rock.image;
     }
     else if(game.player.rock && game.computer.rock){
-        setDetail("rock","rock","tie")
-        computer.src = game.content.rock.image;
-        you.src =game.content.rock.image;
+        setDetail("rock","rock","tie",player,player2)
+        you.src = game.content.rock.image;
+        computer.src =game.content.rock.image;
     }
     else if(game.player.paper && game.computer.scissor){
-        setDetail("paper","scissor","lose")
-        computer.src = game.content.scissor.image;
-        you.src = game.content.paper.image;
+        setDetail("paper","scissor","lose",player,player2)
+        you.src = game.content.scissor.image;
+        computer.src = game.content.paper.image;
     }
     else if(game.player.paper && game.computer.rock){
-        setDetail("paper","rock","win")
-        computer.src = game.content.rock.image;
-        you.src = game.content.paper.image;
+        setDetail("paper","rock","win",player,player2)
+        you.src = game.content.rock.image;
+        computer.src = game.content.paper.image;
     }
     else if(game.player.paper && game.computer.paper){
-        setDetail("paper","paper","tie")
-        computer.src = game.content.paper.image;
+        setDetail("paper","paper","tie",player,player2)
         you.src = game.content.paper.image;
+        computer.src = game.content.paper.image;
     }
     else if(game.player.scissor && game.computer.scissor){
-        setDetail("scissor","scissor","tie")
-        computer.src = game.content.scissor.image;
+        setDetail("scissor","scissor","tie",player,player2)
         you.src = game.content.scissor.image;
+        computer.src = game.content.scissor.image;
     }
     else if(game.player.scissor && game.computer.rock){
-        setDetail("scissor","rock","lose")
-        computer.src = game.content.rock.image;
-        you.src = game.content.scissor.image;
+        setDetail("scissor","rock","lose",player,player2)
+        you.src = game.content.rock.image;
+        computer.src = game.content.scissor.image;
     }
     else if(game.player.scissor && game.computer.paper){
-        setDetail("scissor","paper","win")
+        setDetail("scissor","paper","win",player,player2)
         computer.src = game.content.scissor.image;
         you.src = game.content.paper.image;
     }
@@ -146,9 +155,41 @@ function calc_game(){
     newGame();
 }
 
-function play(name){
+function play(name,type){
     game.player.rock = name === "rock";
     game.player.paper = name === "paper";
     game.player.scissor = name === "scissor";
-    calc_game();
+    type==="auto"?calc_game("comp","comp"):calc_game();
+}
+
+function for_autoplay(){
+    newGame();
+    const randomNum = getRandomNumber();
+    if(randomNum == 1){
+        play('rock',"auto");
+    }
+    else if(randomNum == 2){
+        play('paper',"auto");
+    }
+    else if(randomNum == 3){
+        play('scissor',"auto");
+    }
+}
+
+let autoplayId;
+
+function autoplay(){
+    autoplayB.textContent = "Stop autoplay";
+    player1.textContent="computer 1"
+    player2.textContent="computer 2"
+    autoplayB.onclick = stop_autoplay;
+    autoplayId=setInterval(for_autoplay,5000);
+}
+
+function stop_autoplay(){
+    autoplayB.textContent = "Autoplay";
+    player1.textContent="You"
+    player2.textContent="Computer"
+    autoplayB.onclick = autoplay;
+    clearInterval(autoplayId);
 }

@@ -32,14 +32,15 @@
     </div>
 
         <button class="newGame" onclick="resetGame()">New Game</button>
+        <button class="newGame autoplay" onclick="autoplay()">Auto Play</button>
         <button class="newGame" onclick="window.location='../html/web.html'">End Game</button>
         <button class="newGame" onclick="window.location='../html/dom.html'">Go to DOM</button>
 
     </div>
     <div class="value">Result</div>
     <div class="result">
-        <div>You :<img src="" alt="you" class="yourMove" height="50" width="50" ></div>
-    <div>Computer: <img src="" alt="computer" class="computerMove" height="50" width="50" ></div>
+        <div><h4 class="player1">You :</h4><img src="../assets/paper.jpg" alt="you" class="yourMove" height="50" width="50" ></div>
+    <div><h4 class="player2">Computer: </h4><img src="../assets/rock.jpg" alt="computer" class="computerMove" height="50" width="50" ></div>
     </div>
     <button class="newGame" onclick="window.location='./js-css.html'">JS+CSS</button>
     <script src="../scripts/gameWithObject.js"></script>
