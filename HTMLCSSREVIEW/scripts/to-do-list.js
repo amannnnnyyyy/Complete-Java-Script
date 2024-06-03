@@ -43,22 +43,21 @@ function deleteToDoItem(index) {
 }
 
 function renderToDoList() {
-  totalToDoHTML = ''; // Clear existing HTML
+  totalToDoHTML = ''; 
     let html;
-    for (let i = 0; i < todo.length; i++) {
-      const {todoList,date} = todo[i];
+      todo.forEach(({todoList,date},index)=>{
     if(todoList.length > 0 && todoList!==null && todoList !==''){
        html = `
     <div> ${todoList}</div> 
     <div>${date}</div>
-    <button class="delete" onclick="deleteToDoItem(${i})">
+    <button class="delete" onclick="deleteToDoItem(${index})">
             Delete
     </button>
     `;}
     totalToDoHTML += html?html:'';
     values.value = '';
     dateInput.value = '';
-}
+    })
 
 displayToDo.innerHTML = totalToDoHTML;
 }
@@ -166,3 +165,8 @@ function fizzBuzz(nums){
 }
 
 //console.log(fizzBuzz([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]));
+
+//for Each
+[2,3,4,5,6,7].forEach((value)=>{
+  console.log(value**2)
+})
