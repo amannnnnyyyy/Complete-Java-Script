@@ -4,5 +4,25 @@
 
 .delete{
     background-color:red;
-    color:black;
+    padding-left:20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    color: white;
+    border-color: aliceblue;
+}
+
+.add{
+    background-color: green;
+    padding-left:20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    color: white;
+    border-color: aliceblue;
+}
+
+.todo-grid,.todo-input-grid{
+    display: grid;
+    grid-template-columns: 200px 120px 80px;
 }

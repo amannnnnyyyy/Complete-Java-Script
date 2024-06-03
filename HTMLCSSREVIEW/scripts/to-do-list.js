@@ -49,11 +49,11 @@ function renderToDoList() {
       const {todoList,date} = todo[i];
     if(todoList.length > 0 && todoList!==null && todoList !==''){
        html = `
-    <p> ${todoList} ${date}</p>
-        <button onclick="deleteToDoItem(${i})">
+    <div> ${todoList}</div> 
+    <div>${date}</div>
+    <button class="delete" onclick="deleteToDoItem(${i})">
             Delete
-        </button>
-    </p>
+    </button>
     `;}
     totalToDoHTML += html?html:'';
     values.value = '';
