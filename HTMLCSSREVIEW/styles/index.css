@@ -7,6 +7,16 @@ html{
     color: white;
     border: none;
   }
+  .btnc {
+    border-radius: 50px;
+    background-color: rgb(30, 30, 30);
+    padding-left: 10px;
+    
+  }
+.btnp,.btne,.btns{
+  background-color: yellow;
+  color: black;
+}
 .atc{
     background-color: aqua;
 }
@@ -123,4 +133,13 @@ html{
   .computer{
     height: 50px;
     width: 50px;
+  }
+  
+  .calculator-body{
+    border-color: antiquewhite;
+    border-width: 10px solid green;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
   }
