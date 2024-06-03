@@ -84,3 +84,85 @@ function minMax(nums) {
 }
 
 minMax(nums);
+
+
+
+const astr = ["hello","world","search","search","good"];
+
+function findIndex(astr,word){
+for(let i=0;i<astr.length;i++) {
+  if(astr[i]===word){
+    console.log(i);
+    break;
+  }else if(i===(astr.length-1)){
+    console.log(-1);
+  }
+}}
+// findIndex(astr,"search");
+
+function removeEgg(food){
+  let newFood = [];
+  for (let i = 0; i<food.length; i++) {
+    if(food[i]==="Egg"){
+      continue;
+    }
+    newFood.push(food[i]);
+  }
+  return newFood;
+}
+
+// console.log(removeEgg(["Hamburger","Egg","Salad","Egg"]));
+
+function firstTwoEggs(food){
+  let newFood = [];
+  let count = 0;
+  for (let i = 0; i<food.length; i++) {
+    if(food[i]==="Egg" && count<2){
+      count++;
+      continue;
+    }
+    newFood.push(food[i]);
+  }
+  return newFood;
+}
+
+//console.log(firstTwoEggs(["Shellfish","Egg","Egg","Normal","Egg","Egg"]));
+
+function lastTwoEggs(food){
+  let newFood = [];
+  let count = 0;
+  let reverseFood=food.slice().reverse();
+  console.log("reverse food: " + reverseFood);
+  for (let i = 0; i<reverseFood.length; i++) {
+    if(reverseFood[i]==="Egg" && count<2){
+      count++;
+      continue;
+    }
+    newFood.push(reverseFood[i]);
+  }
+  console.log("original food: " + food);
+  return newFood.reverse();
+}
+
+//console.log(lastTwoEggs(["Shellfish","Egg","Egg","Normal","Egg","Egg","Egg"]));
+
+function fizzBuzz(nums){
+  newArr = [];
+  for (let i=0; i<nums.length;i++){
+    if((nums[i]%3===0)&&(nums[i]%5===0)){
+      newArr.push("FizzBuzz");
+    }
+    else if(nums[i]%3===0){
+      newArr.push("Fizz");
+    }
+    else if (nums[i]%5===0){
+      newArr.push("Buzz");
+    }
+    else{
+      newArr.push(nums[i]);
+    }
+  }
+  return newArr;
+}
+
+//console.log(fizzBuzz([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]));
