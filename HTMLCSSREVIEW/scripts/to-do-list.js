@@ -3,7 +3,7 @@ const value2 = document.querySelector('.value2');
 const display = document.querySelector('.display');
 const values = document.querySelector('.value');
 const displayToDo = document.querySelector('.displayToDo');
-const date = document.querySelector('.date');
+const dateInput = document.querySelector('.date');
 const todo1 = [];
 const todo2 = [];
 const todo = [{
@@ -32,7 +32,7 @@ function add_demo(num) {
 let totalToDoHTML = '';
 
 function add_toDoList() {
-  date1 = date.value;
+  date1 = dateInput.value;
   todo.push({todoList:values.value,date:date1});
   renderToDoList();
 }
@@ -46,9 +46,11 @@ function renderToDoList() {
   totalToDoHTML = ''; // Clear existing HTML
     let html;
     for (let i = 0; i < todo.length; i++) {
-    if(todo[i].todoList.length > 0 && todo[i].todoList!==null && todo[i].todoList !==''){
+      const {todoList} = todo[i];
+      const {date} = todo[i];
+    if(todoList.length > 0 && todoList!==null && todoList !==''){
        html = `
-    <p> ${todo[i].todoList} ${todo[i].date}</p>
+    <p> ${todoList} ${date}</p>
         <button onclick="deleteToDoItem(${i})">
             Delete
         </button>
@@ -56,7 +58,7 @@ function renderToDoList() {
     `;}
     totalToDoHTML += html?html:'';
     values.value = '';
-    date.value = '';
+    dateInput.value = '';
 }
 
 displayToDo.innerHTML = totalToDoHTML;
