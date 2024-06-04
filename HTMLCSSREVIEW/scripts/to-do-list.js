@@ -164,6 +164,34 @@ function lastTwoEggs(food){
 
 //console.log(lastTwoEggs(["Shellfish","Egg","Egg","Normal","Egg","Egg","Egg"]));
 
+function filterRemoveEggs(food){
+  console.log(food.filter(value=> value!=="Egg"))
+}
+// filterRemoveEggs(["Shellfish","Egg","Egg","Normal","Egg","Egg","Egg"]);
+
+function filterRemoveFirstTwoEggs(food){
+  let count = 0
+  console.log(food.filter((value,index)=> 
+    {
+      if(value==="Egg" && count<2)
+        { count++;
+          return false;}
+      return true
+    }))
+}
+filterRemoveFirstTwoEggs(["Shellfish","Egg","Egg","Normal","Egg","Egg","Egg","Egg"]);
+
+function filterOnlyTwoEggs(food){
+  let count = 0
+  console.log(food.filter((value,index)=> 
+    {
+      if(value==="Egg" && count<=2)
+        { count++;
+          return true;}
+      return value!=="Egg"
+    }))
+}
+
 function fizzBuzz(nums){
   newArr = [];
   for (let i=0; i<nums.length;i++){

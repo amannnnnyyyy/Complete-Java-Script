@@ -12,6 +12,9 @@ let paperImg = document.querySelector(".paperImg")
 let scissorsImg = document.querySelector(".scissorsImg")
 let modal = document.querySelector(".modal")
 let help = document.querySelector(".help")
+let areYouSure = document.querySelector(".areYouSure")
+let resetYes = document.querySelector(".resetYes");
+let resetNo = document.querySelector(".resetNo");
 
 rockImg?rockImg.addEventListener('click',()=>{play("rock")}):null
 paperImg?paperImg.addEventListener('click',()=>play("paper")):null
@@ -26,12 +29,20 @@ document.body.addEventListener('keydown',(event)=>{
     else if(event.key==='a')
         autoplay();
     else if(event.key==='Escape')
-        resetGame();
+        areYouSure.classList.add('make-sure')
     else if(event.key==='q')
         stop_autoplay();
 });
 help?help.addEventListener('click',()=>{
     display_help();
+}):null;
+resetNo?resetNo.addEventListener('click',()=>{
+    areYouSure.classList.remove('make-sure')
+}):null;
+
+resetYes?resetYes.addEventListener('click',()=>{
+    areYouSure.classList.remove('make-sure');
+    resetGame();
 }):null;
 
 

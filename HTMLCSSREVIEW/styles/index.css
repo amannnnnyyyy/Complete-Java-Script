@@ -167,3 +167,20 @@ html{
     background: -webkit-linear-gradient(to right, #96c93d, #00b09b);
     background: linear-gradient(to right, #96c93d, #00b09b);
   }
+
+  .make-sure{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: violet;
+    border-style: double;
+    border-width: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-color: green;
+    justify-content: center;
+    color:black;
+  }
