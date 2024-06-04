@@ -7,6 +7,37 @@ let value = document.querySelector(".value")
 let autoplayB = document.querySelector(".autoplay")
 let player1 = document.querySelector(".player1")
 let player2 = document.querySelector(".player2")
+let rockImg = document.querySelector(".rockImg")
+let paperImg = document.querySelector(".paperImg")
+let scissorsImg = document.querySelector(".scissorsImg")
+let modal = document.querySelector(".modal")
+let help = document.querySelector(".help")
+
+rockImg?rockImg.addEventListener('click',()=>{play("rock")}):null
+paperImg?paperImg.addEventListener('click',()=>play("paper")):null
+scissorsImg?scissorsImg.addEventListener('click',()=>play("scissor")):null
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='r')
+    play("rock")});
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='p')
+    play("paper")});
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='s')
+    play("scissor")});
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='a')
+    autoplay();});
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='Escape')
+    resetGame();});
+document.body.addEventListener('keydown',(event)=>{
+    if(event.key==='q')
+    stop_autoplay();});
+help?help.addEventListener('click',()=>{
+    display_help();
+}):null;
+
 
 const game= {
     name:"ROCK PAPER SCISSORS",
@@ -192,4 +223,10 @@ function stop_autoplay(){
     player2.textContent="Computer"
     autoplayB.onclick = autoplay;
     clearInterval(autoplayId);
+}
+
+function display_help(){
+
+    modal.classList.contains('hideItem')?modal.classList.remove('hideItem'):modal.classList.add('hideItem');
+
 }

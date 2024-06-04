@@ -4,6 +4,11 @@ const display = document.querySelector('.display');
 const values = document.querySelector('.value');
 const displayToDo = document.querySelector('.displayToDo');
 const dateInput = document.querySelector('.date');
+const exercise = document.querySelector('.exercise');
+const cartAdd = document.querySelector('.cartAdd');
+const cartMessage = document.querySelector('.cartMessage');
+const readMessageBtn = document.querySelector('.readMessage');
+const removeMessages = document.querySelector('.removeMessage');
 const todo1 = [];
 const todo2 = [];
 const todo = [{
@@ -167,6 +172,90 @@ function fizzBuzz(nums){
 //console.log(fizzBuzz([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]));
 
 //for Each
-[2,3,4,5,6,7].forEach((value)=>{
-  console.log(value**2)
-})
+// [2,3,4,5,6,7].forEach((value)=>{
+//   console.log(value**2)
+// })
+
+
+//exercise
+let add = function(){
+  console.log(2+3);
+}
+add();
+add();
+runTwice(add);
+
+function runTwice(func){
+  func();
+  func();
+}
+
+function setTime(){
+  if(exercise.textContent === "Finished")
+    {
+      exercise.textContent = "Exercise"
+      return;
+    }
+    exercise.textContent = "Loading..."
+  setTimeout(()=>{
+    exercise.textContent = "Finished"
+  },1000)
+}
+
+let timeOutId;
+function addToCart(){
+  if(cartMessage.textContent === ""){
+  cartMessage.textContent = "Added"
+  timed();
+}else if(cartMessage.textContent === "Added"){
+  clearTimeout(timeOutId);
+  timed();
+}
+}
+
+function timed(){
+  timeOutId= setTimeout(()=>{
+    cartMessage.textContent = "";
+  },2000) 
+}
+
+let message = 0;
+let messageId;
+function startMessage(){
+  readMessageBtn.textContent = "Read Message"
+  messageId=setInterval(()=>{
+  message++;
+  document.title=`(${message}) New messages`
+},2000)
+}
+startMessage();
+function readMessage(){
+  if(document.title==="To do list And Lessons"){
+    startMessage();
+  }else{
+  clearInterval(messageId);
+  message = 0;
+  document.title = "To do list And Lessons"
+  readMessageBtn.textContent = "Start Message";
+}
+}
+
+const addMessage = () => {
+    removeMessages.classList.contains('disable-button')?removeMessages.classList.remove("disable-button"):"";
+    message++;
+    document.title=`(${message}) New messages`;
+}
+
+const removeMessage = () => {
+  if(message!==0)
+      message--;
+  else
+    {
+      removeMessages.textContent="You have already read all messages"
+      setTimeout(()=>{removeMessages.textContent="Remove Messages"
+      },2000)
+      removeMessages.classList.add("disable-button")
+      console.log(removeMessages.classList)
+    }
+  document.title = `(${message}) New messages`;
+}

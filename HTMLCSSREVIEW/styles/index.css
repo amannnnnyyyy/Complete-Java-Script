@@ -143,3 +143,27 @@ html{
     padding-bottom: 10px;
     padding-right: 10px;
   }
+
+  .help{
+    position: fixed;
+    right: 20px;
+  }
+  .help:hover{
+    height:50px;
+      width:50px
+  }
+
+  .hideItem{
+    display:none;
+  }
+  .modal{
+    background-color:white;
+    position:fixed;
+    right:50px;
+    text-decoration: solid;
+    font-weight: bolder;
+    border-style: groove;
+    background: #00b09b;
+    background: -webkit-linear-gradient(to right, #96c93d, #00b09b);
+    background: linear-gradient(to right, #96c93d, #00b09b);
+  }
