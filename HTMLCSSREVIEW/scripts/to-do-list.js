@@ -9,6 +9,14 @@ const cartAdd = document.querySelector('.cartAdd');
 const cartMessage = document.querySelector('.cartMessage');
 const readMessageBtn = document.querySelector('.readMessage');
 const removeMessages = document.querySelector('.removeMessage');
+const addBtn = document.querySelector('.add');
+
+//Event Listeners
+addBtn.addEventListener('click',()=>{
+  add_toDoList();
+})
+
+
 const todo1 = [];
 const todo2 = [];
 const todo = [{
@@ -44,18 +52,18 @@ function add_toDoList() {
 
 function deleteToDoItem(index) {
   todo.splice(index, 1);
-  renderToDoList(); // Re-render the todo list after deletion
+  renderToDoList();
 }
 
 function renderToDoList() {
   totalToDoHTML = ''; 
     let html;
-      todo.forEach(({todoList,date},index)=>{
+      todo.forEach(({todoList,date})=>{
     if(todoList.length > 0 && todoList!==null && todoList !==''){
        html = `
     <div> ${todoList}</div> 
     <div>${date}</div>
-    <button class="delete" onclick="deleteToDoItem(${index})">
+    <button class="delete">
             Delete
     </button>
     `;}
@@ -65,6 +73,12 @@ function renderToDoList() {
     })
 
 displayToDo.innerHTML = totalToDoHTML;
+document.querySelectorAll('.delete')
+    .forEach((deleteBtn,index)=>{
+      deleteBtn.addEventListener('click',()=>{
+        deleteToDoItem(index+1);
+      })
+    })
 }
 
 // Find max and min of array
