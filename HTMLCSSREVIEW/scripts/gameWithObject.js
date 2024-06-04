@@ -18,22 +18,18 @@ paperImg?paperImg.addEventListener('click',()=>play("paper")):null
 scissorsImg?scissorsImg.addEventListener('click',()=>play("scissor")):null
 document.body.addEventListener('keydown',(event)=>{
     if(event.key==='r')
-    play("rock")});
-document.body.addEventListener('keydown',(event)=>{
-    if(event.key==='p')
-    play("paper")});
-document.body.addEventListener('keydown',(event)=>{
-    if(event.key==='s')
-    play("scissor")});
-document.body.addEventListener('keydown',(event)=>{
-    if(event.key==='a')
-    autoplay();});
-document.body.addEventListener('keydown',(event)=>{
-    if(event.key==='Escape')
-    resetGame();});
-document.body.addEventListener('keydown',(event)=>{
-    if(event.key==='q')
-    stop_autoplay();});
+        play("rock")
+    else if(event.key==='p')
+        play("paper")
+    else if(event.key==='s')
+        play("scissor")
+    else if(event.key==='a')
+        autoplay();
+    else if(event.key==='Escape')
+        resetGame();
+    else if(event.key==='q')
+        stop_autoplay();
+});
 help?help.addEventListener('click',()=>{
     display_help();
 }):null;
