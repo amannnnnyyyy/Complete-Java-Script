@@ -67,7 +67,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         const productName = button.dataset.productName;
         const productId = button.dataset.productId;
         let newCart = cart.filter((value)=>value.productId===productId)
-        quantity=document.querySelector(`.select-${productId}`).value
+        quantity=Number(document.querySelector(`.select-${productId}`).value)
             console.log("quantity ",quantity)
         if(!newCart.find(o=>o.productId===productId))
             cart.push({
@@ -78,7 +78,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         else {
             cart.map((value)=>{
                 if(value.productId===productId)
-                    value.quantity=eval(Number(value.quantity)+Number(quantity));
+                    value.quantity+=quantity;
             })
         }
         addToCart(quantity);
@@ -91,7 +91,7 @@ let count=0;
 function addToCart(){
     count = 0
     cart.map((value)=>{
-        count+=Number(value.quantity)
+        count+=value.quantity
     })
     cart_quantity.textContent = count;
 }
