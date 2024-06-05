@@ -5,9 +5,9 @@ const product_rating_image = document.querySelector('.product-rating-stars');
 const product_price = document.querySelector('.product-price');
 const product_rating_count = document.querySelector('.product-rating-count');
 const products_grid = document.querySelector('.products-grid') 
+const cart_quantity = document.querySelector('.cart-quantity')
 
-
-
+let cart = 1;
 products.map((product)=>{
     products_grid.innerHTML += `
     <div class="product-container">
@@ -32,7 +32,7 @@ products.map((product)=>{
                 $${(product.priceCents/100).toFixed(2)}
             </div>
 
-            <div class="product-quantity-container">
+            <div class="product-quantity-container js-quantity">
                 <select>
                     <option selected value="1">1</option>
                     <option value="2">2</option>
@@ -54,9 +54,22 @@ products.map((product)=>{
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary js-add-to-cart">
                 Add to Cart
             </button>
         </div>
     `
 })
+
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+    button.addEventListener('click',()=>{
+        addToCart();
+    })
+})
+
+
+
+function addToCart(){
+    cart_quantity.textContent = cart;
+    cart++;
+}
