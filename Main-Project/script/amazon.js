@@ -1,4 +1,3 @@
-
 const product_name = document.querySelector('.product-name');
 const product_image = document.querySelector('.product-image');
 const product_rating_image = document.querySelector('.product-rating-stars');
@@ -7,7 +6,7 @@ const product_rating_count = document.querySelector('.product-rating-count');
 const products_grid = document.querySelector('.products-grid') 
 const cart_quantity = document.querySelector('.cart-quantity')
 
-let cart = 1;
+let cartQuantity = 1;
 products.map((product)=>{
     products_grid.innerHTML += `
     <div class="product-container">
@@ -54,7 +53,7 @@ products.map((product)=>{
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary js-add-to-cart">
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
                 Add to Cart
             </button>
         </div>
@@ -64,12 +63,27 @@ products.map((product)=>{
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         addToCart();
+        const productName = button.dataset.productName;
+        console.log('hello')
+        let newCart = cart.filter((value)=>value.productName===productName)
+        if(!newCart.find(o=>o.productName===productName))
+            cart.push({
+                productName,
+                quantity:1
+            })
+        else {
+            cart.map((value)=>{
+                if(value.productName===productName)
+                    value.quantity++;
+            })
+        }
+        console.log(cart)
     })
 })
 
 
 
 function addToCart(){
-    cart_quantity.textContent = cart;
-    cart++;
+    cart_quantity.textContent = cartQuantity;
+    cartQuantity++;
 }
