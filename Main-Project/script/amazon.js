@@ -5,30 +5,7 @@ const product_rating_image = document.querySelector('.product-rating-stars');
 const product_price = document.querySelector('.product-price');
 const product_rating_count = document.querySelector('.product-rating-count');
 const products_grid = document.querySelector('.products-grid') 
-// const products = [{
-//     name:'Black and Gray Athletic Cotton Socks - 6 Pairs',
-//     image:'images/products/athletic-cotton-socks-6-pairs.jpg',
-//     ratingImg:'images/ratings/rating-45.png',
-//     rating:87,
-//     price:10.90,
-//     quantity:10,
-// },
-// {
-//     name:'Intermediate Size Basketball',
-//     image:'images/products/intermediate-composite-basketball.jpg',
-//     ratingImg:'images/ratings/rating-40.png',
-//     rating:127,
-//     price:20.95,
-//     quantity:10,
-// },
-// {
-//     name:'Adults Plain Cotton T-Shirt - 2 Pack',
-//     image:'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-//     ratingImg:'images/ratings/rating-45.png',
-//     rating:56,
-//     price:7.99,
-//     quantity:10,
-// }];
+
 
 
 products.map((product)=>{
@@ -45,14 +22,14 @@ products.map((product)=>{
 
             <div class="product-rating-container">
                 <img class="product-rating-stars"
-                src="${product.ratingImg}">
+                src="images/ratings/rating-${(product.rating.stars)*10}.png">
                 <div class="product-rating-count link-primary">
-                ${product.rating}
+                ${product.rating.count}
                 </div>
             </div>
 
             <div class="product-price">
-                $${product.price}
+                $${(product.priceCents/100).toFixed(2)}
             </div>
 
             <div class="product-quantity-container">
