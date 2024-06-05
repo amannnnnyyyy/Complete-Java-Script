@@ -6,7 +6,7 @@ const product_rating_count = document.querySelector('.product-rating-count');
 const products_grid = document.querySelector('.products-grid') 
 const cart_quantity = document.querySelector('.cart-quantity')
 
-let cartQuantity = 1;
+
 products.map((product)=>{
     products_grid.innerHTML += `
     <div class="product-container">
@@ -32,7 +32,7 @@ products.map((product)=>{
             </div>
 
             <div class="product-quantity-container js-quantity">
-                <select>
+                <select class="select-${product.id}">
                     <option selected value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -60,24 +60,30 @@ products.map((product)=>{
     `
 })
 
+
+let quantity;
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         const productName = button.dataset.productName;
         const productId = button.dataset.productId;
         let newCart = cart.filter((value)=>value.productId===productId)
+        document.querySelectorAll(`.select-${productId}`).forEach((selected)=>{
+            quantity = selected.value
+            console.log("quantity ",quantity)
+        })
         if(!newCart.find(o=>o.productId===productId))
             cart.push({
                 productId,
                 productName,
-                quantity:1
+                quantity:quantity
             })
         else {
             cart.map((value)=>{
                 if(value.productId===productId)
-                    value.quantity++;
+                    value.quantity=eval(Number(value.quantity)+Number(quantity));
             })
         }
-        addToCart();
+        addToCart(quantity);
         console.log(cart)
     })
 })
@@ -85,10 +91,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 
 let count=0;
 function addToCart(){
-    count=0;
+    count = 0
     cart.map((value)=>{
-        count+=value.quantity
+        count+=Number(value.quantity)
     })
     cart_quantity.textContent = count;
-    cartQuantity++;
 }
