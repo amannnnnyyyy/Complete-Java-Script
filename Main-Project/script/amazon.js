@@ -48,7 +48,7 @@ products.map((product)=>{
 
             <div class="product-spacer"></div>
 
-            <div class="added-to-cart">
+            <div class="added-to-cart js-message-${product.id} hide">
                 <img src="images/icons/checkmark.png">
                 Added
             </div>
@@ -69,6 +69,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         let newCart = cart.filter((value)=>value.productId===productId)
         quantity=Number(document.querySelector(`.select-${productId}`).value)
             console.log("quantity ",quantity)
+        let message = document.querySelector(`.js-message-${productId}`);
+        message.classList.remove('hide')
+        setTimeout(()=>message.classList.add('hide'),2000)
         if(!newCart.find(o=>o.productId===productId))
             cart.push({
                 productId,
