@@ -67,10 +67,8 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         const productName = button.dataset.productName;
         const productId = button.dataset.productId;
         let newCart = cart.filter((value)=>value.productId===productId)
-        document.querySelectorAll(`.select-${productId}`).forEach((selected)=>{
-            quantity = selected.value
+        quantity=document.querySelector(`.select-${productId}`).value
             console.log("quantity ",quantity)
-        })
         if(!newCart.find(o=>o.productId===productId))
             cart.push({
                 productId,
