@@ -2,6 +2,7 @@ import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
+import { saveToStorage } from "../data/cart.js";
 
 
 const cartItemContainer = document.querySelector('.cart-item-container');
@@ -9,7 +10,7 @@ const cartItemContainer = document.querySelector('.cart-item-container');
 const numberOfItems = document.querySelector('.number-of-items')
 
 
-let count=0;
+export let count=0;
 cart.forEach((one)=>{
   count++;
   let product = products.filter((product)=>{
@@ -98,15 +99,34 @@ cartItemContainer.innerHTML += `
     `
     })
 
-count?numberOfItems.textContent = count+' items':null
-
-
-
-
+count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
       let productId = button.dataset.productId;
       removeFromCart(productId);
+      count--;
       document.querySelector(`.js-container-${productId}`).remove()
+      count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
+      if(!count) {
+        
+        document.body.innerHTML += `
+        <div class='drop-shadow'>
+        <img class="errorImage" src='../../HTMLCSSREVIEW/assets/notFound.png'>
+          <div class="glass">
+          </div>
+        
+          <div class="bullshit">
+          <h4>Redirecting you to home page</h4></div>
+        </div>`
+        setTimeout(()=>window.location = "../Main-Project/amazon.html",2000)
+      }
     })
   })
+
+  
+
+        // document.body.innerHTML += `
+        // <div class="drop-shadow">
+        // <div class="glass"></div>
+        //   <span>GLASS</span>
+        //   </div>`

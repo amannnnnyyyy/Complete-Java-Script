@@ -5,6 +5,7 @@ import { formatCurrency } from './utils/money.js';
 const products_grid = document.querySelector('.products-grid') 
 const cart_quantity = document.querySelector('.cart-quantity')
 
+let message;
 
 products.map((product)=>{
     products_grid.innerHTML += `
@@ -77,12 +78,15 @@ function handleAddToCart(productName,productId){
     let newCart = cart.filter((value)=>value.productId===productId)
         quantity=Number(document.querySelector(`.select-${productId}`).value)
         display_added_message(productId)
+        //clearTimeout(timeoutId);
         pushToCart(productId,productName,newCart,quantity)
 }
 
 
+
 function display_added_message(productId){
-    let message = document.querySelector(`.js-message-${productId}`);
+        message?message.classList.add('hide'):null;
+        message = document.querySelector(`.js-message-${productId}`);
         message.classList.remove('hide')
         if(!timeoutId){
             timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
@@ -93,7 +97,7 @@ function display_added_message(productId){
             timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
         }   
 }
-let count=0;
+let count;
 function addToCart(){
     count = 0
     cart.map((value)=>{
@@ -101,3 +105,4 @@ function addToCart(){
     })
     cart_quantity.textContent = count;
 }
+addToCart();

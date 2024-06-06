@@ -1,12 +1,5 @@
-export let cart = [{
-    productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    productName: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    quantity: 1
-},{
-    productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-    productName: "Intermediate Size Basketball",
-    quantity: 3
-}]
+export let cart = localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')):
+[]
 
 export const pushToCart=(productId,productName,newCart,quantity)=>{
     if(!newCart.find(o=>o.productId===productId))
@@ -21,6 +14,11 @@ export const pushToCart=(productId,productName,newCart,quantity)=>{
                 value.quantity+=quantity;
         })
     }
+    saveToStorage()
+}
+
+export const saveToStorage = () =>{
+    localStorage.setItem('cart',JSON.stringify(cart))
 }
 
 export const removeFromCart = (productId) => {
@@ -29,4 +27,5 @@ export const removeFromCart = (productId) => {
             return false;
         }else return true
     })
+    saveToStorage();
 }
