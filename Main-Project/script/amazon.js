@@ -1,11 +1,7 @@
 import {cart} from '../data/cart.js';
 import { products } from '../data/products.js';
+import { pushToCart } from '../data/cart.js';
 
-const product_name = document.querySelector('.product-name');
-const product_image = document.querySelector('.product-image');
-const product_rating_image = document.querySelector('.product-rating-stars');
-const product_price = document.querySelector('.product-price');
-const product_rating_count = document.querySelector('.product-rating-count');
 const products_grid = document.querySelector('.products-grid') 
 const cart_quantity = document.querySelector('.cart-quantity')
 
@@ -81,23 +77,9 @@ function handleAddToCart(productName,productId){
     let newCart = cart.filter((value)=>value.productId===productId)
         quantity=Number(document.querySelector(`.select-${productId}`).value)
         display_added_message(productId)
-        pushToCart(productId,productName,newCart)
+        pushToCart(productId,productName,newCart,quantity)
 }
 
-function pushToCart(productId,productName,newCart){
-    if(!newCart.find(o=>o.productId===productId))
-        cart.push({
-            productId,
-            productName,
-            quantity:quantity
-        })
-    else {
-        cart.map((value)=>{
-            if(value.productId===productId)
-                value.quantity+=quantity;
-        })
-    }
-}
 
 function display_added_message(productId){
     let message = document.querySelector(`.js-message-${productId}`);
@@ -109,7 +91,7 @@ function display_added_message(productId){
             clearTimeout(timeoutId);
             console.log("after clearing ",timeoutId)
             timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
-        }
+        }   
 }
 let count=0;
 function addToCart(){
