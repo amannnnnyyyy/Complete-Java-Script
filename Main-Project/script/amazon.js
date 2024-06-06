@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 const product_name = document.querySelector('.product-name');
 const product_image = document.querySelector('.product-image');
 const product_rating_image = document.querySelector('.product-rating-stars');
@@ -62,6 +64,7 @@ products.map((product)=>{
 
 
 let quantity;
+let timeoutId;
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         const productName = button.dataset.productName;
@@ -71,7 +74,16 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
             console.log("quantity ",quantity)
         let message = document.querySelector(`.js-message-${productId}`);
         message.classList.remove('hide')
-        setTimeout(()=>message.classList.add('hide'),2000)
+        console.log(!timeoutId)
+        if(!timeoutId){
+            timeoutId = setTimeout(()=>message.classList.add('hide'),9000)
+        }
+        else{
+            clearTimeout(timeoutId);
+            console.log("after clearing ",timeoutId)
+            timeoutId = setTimeout(()=>message.classList.add('hide'),9000)
+        }
+        
         if(!newCart.find(o=>o.productId===productId))
             cart.push({
                 productId,
