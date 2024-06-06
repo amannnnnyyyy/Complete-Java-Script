@@ -1,13 +1,17 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+import { removeFromCart } from "../data/cart.js";
 
 
 const cartItemContainer = document.querySelector('.cart-item-container');
 //const paymentSummary = document.querySelector('.payment-summary');
+const numberOfItems = document.querySelector('.number-of-items')
 
 
+let count=0;
 cart.forEach((one)=>{
+  count++;
   let product = products.filter((product)=>{
     if(product.id===one.productId){
       return true
@@ -15,7 +19,7 @@ cart.forEach((one)=>{
     return false;
   })
   
- cartItemContainer.innerHTML += `
+cartItemContainer.innerHTML += `
     <div class="delivery-date">
       Delivery date: Tuesday, June 21
     </div>
@@ -38,7 +42,7 @@ cart.forEach((one)=>{
           <span class="update-quantity-link link-primary">
             Update
           </span>
-          <span class="delete-quantity-link link-primary">
+          <span class="delete-quantity-link link-primary js-delete" data-product-id="${product[0].id}">
             Delete
           </span>
         </div>
@@ -51,7 +55,7 @@ cart.forEach((one)=>{
         <div class="delivery-option">
           <input type="radio" checked
             class="delivery-option-input"
-            name="delivery-option-1">
+            name="delivery-option-${product[0].id}">
           <div>
             <div class="delivery-option-date">
               Tuesday, June 21
@@ -64,7 +68,7 @@ cart.forEach((one)=>{
         <div class="delivery-option">
           <input type="radio"
             class="delivery-option-input"
-            name="delivery-option-1">
+            name="delivery-option-${product[0].id}">
           <div>
             <div class="delivery-option-date">
               Wednesday, June 15
@@ -77,7 +81,7 @@ cart.forEach((one)=>{
         <div class="delivery-option">
           <input type="radio"
             class="delivery-option-input"
-            name="delivery-option-1">
+            name="delivery-option-${product[0].id}">
           <div>
             <div class="delivery-option-date">
               Monday, June 13
@@ -92,7 +96,14 @@ cart.forEach((one)=>{
     `
     })
 
+count?numberOfItems.textContent = count+' items':null
 
 
 
 
+  document.querySelectorAll('.js-delete').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      let productId = button.dataset.productId;
+      removeFromCart(productId);
+    })
+  })
