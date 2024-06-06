@@ -70,39 +70,47 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         const productName = button.dataset.productName;
         const productId = button.dataset.productId;
-        let newCart = cart.filter((value)=>value.productId===productId)
-        quantity=Number(document.querySelector(`.select-${productId}`).value)
-            console.log("quantity ",quantity)
-        let message = document.querySelector(`.js-message-${productId}`);
-        message.classList.remove('hide')
-        console.log(!timeoutId)
-        if(!timeoutId){
-            timeoutId = setTimeout(()=>message.classList.add('hide'),9000)
-        }
-        else{
-            clearTimeout(timeoutId);
-            console.log("after clearing ",timeoutId)
-            timeoutId = setTimeout(()=>message.classList.add('hide'),9000)
-        }
-        
-        if(!newCart.find(o=>o.productId===productId))
-            cart.push({
-                productId,
-                productName,
-                quantity:quantity
-            })
-        else {
-            cart.map((value)=>{
-                if(value.productId===productId)
-                    value.quantity+=quantity;
-            })
-        }
+        handleAddToCart(productName,productId)
         addToCart(quantity);
         console.log(cart)
     })
 })
 
 
+function handleAddToCart(productName,productId){
+    let newCart = cart.filter((value)=>value.productId===productId)
+        quantity=Number(document.querySelector(`.select-${productId}`).value)
+        display_added_message(productId)
+        pushToCart(productId,productName,newCart)
+}
+
+function pushToCart(productId,productName,newCart){
+    if(!newCart.find(o=>o.productId===productId))
+        cart.push({
+            productId,
+            productName,
+            quantity:quantity
+        })
+    else {
+        cart.map((value)=>{
+            if(value.productId===productId)
+                value.quantity+=quantity;
+        })
+    }
+}
+
+function display_added_message(productId){
+    let message = document.querySelector(`.js-message-${productId}`);
+        message.classList.remove('hide')
+        if(!timeoutId){
+            timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
+        }
+        else{
+            clearTimeout(timeoutId);
+            console.log("after clearing ",timeoutId)
+            timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
+        }
+}
 let count=0;
 function addToCart(){
     count = 0
