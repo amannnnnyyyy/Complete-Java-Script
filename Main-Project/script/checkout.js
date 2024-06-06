@@ -20,6 +20,7 @@ cart.forEach((one)=>{
   })
   
 cartItemContainer.innerHTML += `
+    <div class="cart-item-container js-container-${product[0].id}">
     <div class="delivery-date">
       Delivery date: Tuesday, June 21
     </div>
@@ -93,6 +94,7 @@ cartItemContainer.innerHTML += `
         </div>
       </div>
     </div>
+    </div>
     `
     })
 
@@ -105,5 +107,6 @@ count?numberOfItems.textContent = count+' items':null
     button.addEventListener('click',()=>{
       let productId = button.dataset.productId;
       removeFromCart(productId);
+      document.querySelector(`.js-container-${productId}`).remove()
     })
   })
