@@ -1,4 +1,5 @@
 import {cart} from '../data/cart.js';
+import { products } from '../data/products.js';
 
 const product_name = document.querySelector('.product-name');
 const product_image = document.querySelector('.product-image');
