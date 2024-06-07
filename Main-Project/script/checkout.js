@@ -9,6 +9,7 @@ const cartItemContainer = document.querySelector('.cart-item-container');
 //const paymentSummary = document.querySelector('.payment-summary');
 const numberOfItems = document.querySelector('.number-of-items')
 const main = document.querySelector('.main')
+const paymentSummary = document.querySelector('.payment-summary')
 
 
 export let count=0;
@@ -42,10 +43,12 @@ cartItemContainer.innerHTML += `
           <span>
             Quantity: <span class="quantity-label">${one.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary">
+          <span class="update-quantity-link link-primary js-update js-update-${product[0].id}" data-product-id="${product[0].id}">
             Update
           </span>
-          <span class="delete-quantity-link link-primary js-delete" data-product-id="${product[0].id}">
+          <input class="quantity-input hidden js-input-${product[0].id}" type="number" placeholder="update quantity here">
+          <span class="hidden save-quantity-link link-primary js-updateBtn-${product[0].id}">Save</span>
+          <span class="delete-quantity-link link-primary js-delete js-delete-${product[0].id}" data-product-id="${product[0].id}">
             Delete
           </span>
         </div>
@@ -100,6 +103,41 @@ cartItemContainer.innerHTML += `
     `
     })
 
+    document.querySelector('.payment-summary').innerHTML = `
+          <div class="payment-summary-title">
+            Order Summary
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Items (${count}):</div>
+            <div class="payment-summary-money">$42.75</div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Shipping &amp; handling:</div>
+            <div class="payment-summary-money">$4.99</div>
+          </div>
+
+          <div class="payment-summary-row subtotal-row">
+            <div>Total before tax:</div>
+            <div class="payment-summary-money">$47.74</div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Estimated tax (10%):</div>
+            <div class="payment-summary-money">$4.77</div>
+          </div>
+
+          <div class="payment-summary-row total-row">
+            <div>Order total:</div>
+            <div class="payment-summary-money">$52.51</div>
+          </div>
+
+          <button class="place-order-button button-primary">
+            Place your order
+          </button>
+        ` 
+
 count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
@@ -125,3 +163,22 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     })
   })
 
+
+  //update functionality
+  document.querySelectorAll('.js-update').forEach((button)=>{
+    let productId = button.dataset.productId;
+    const updateBtn = document.querySelector(`.js-updateBtn-${productId}`);
+    const editingQuantity = document.querySelector(`.js-container-${productId}`)
+    button.addEventListener('click',()=>{
+        document.querySelector(`.js-updateBtn-${productId} `).classList.remove('hidden')
+        document.querySelector(`.js-input-${productId}`).classList.remove('hidden')
+        document.querySelector(`.js-update-${productId}`).classList.add('hidden')
+        editingQuantity.classList.add('is-editing-quantity')
+        updateBtn?updateBtn.addEventListener('click',()=>{
+          document.querySelector(`.js-updateBtn-${productId} `).classList.add('hidden')
+          document.querySelector(`.js-input-${productId}`).classList.add('hidden')
+          document.querySelector(`.js-update-${productId}`).classList.remove('hidden')
+          editingQuantity.classList.remove('is-editing-quantity')
+        }):null
+    })
+  })

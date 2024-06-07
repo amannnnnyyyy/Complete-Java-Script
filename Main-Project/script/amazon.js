@@ -4,7 +4,7 @@ import { formatCurrency } from './utils/money.js';
 
 const products_grid = document.querySelector('.products-grid') 
 const cart_quantity = document.querySelector('.cart-quantity')
-
+const toCheckout = document.querySelector('.js-to-checkout')
 let message;
 
 products.map((product)=>{
@@ -104,5 +104,9 @@ function addToCart(){
         count+=value.quantity
     })
     cart_quantity.textContent = count;
+    console.log(count)
 }
 addToCart();
+
+console.log("after ",count)
+toCheckout.href="checkout.html";
