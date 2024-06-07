@@ -8,6 +8,7 @@ import { saveToStorage } from "../data/cart.js";
 const cartItemContainer = document.querySelector('.cart-item-container');
 //const paymentSummary = document.querySelector('.payment-summary');
 const numberOfItems = document.querySelector('.number-of-items')
+const main = document.querySelector('.main')
 
 
 export let count=0;
@@ -108,25 +109,19 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
       document.querySelector(`.js-container-${productId}`).remove()
       count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
       if(!count) {
-        
-        document.body.innerHTML += `
+        console.log("no count") 
+      document.body.classList.add('remove-background')
+      main.classList.add('main-after')
+      document.body.innerHTML += `
         <div class='drop-shadow'>
-        <img class="errorImage" src='../../HTMLCSSREVIEW/assets/notFound.png'>
           <div class="glass">
           </div>
-        
+          <h1 class="errorMessage">No items in your cart</h1>
           <div class="bullshit">
-          <h4>Redirecting you to home page</h4></div>
+          <h4 class="redirect">Redirecting you to home page<span class="ellipsis"> ...</span></h4></div>
         </div>`
         setTimeout(()=>window.location = "../Main-Project/amazon.html",2000)
       }
     })
   })
 
-  
-
-        // document.body.innerHTML += `
-        // <div class="drop-shadow">
-        // <div class="glass"></div>
-        //   <span>GLASS</span>
-        //   </div>`

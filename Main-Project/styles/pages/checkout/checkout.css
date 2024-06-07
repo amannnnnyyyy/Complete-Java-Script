@@ -305,6 +305,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  /* animation: pulsate 1s ease-in-out infinite alternate; */
 }
 .drop-shadow:before {
   display: block;
@@ -327,7 +328,7 @@ body{
   padding-left: 0.375em;
 }
 
-@media (max-width: 980px) {
+@media (min-width: 1280px) {
   .glass {
     -webkit-clip-path: inset(5em);
             clip-path: inset(5em);
@@ -340,6 +341,26 @@ body{
   .drop-shadow > span {
     font-size: 4em;
   }
+  .main-after {
+    visibility:hidden;
+  }
+}
+@media (max-width: 1279px) {
+  .glass {
+    -webkit-clip-path: inset(5em);
+            clip-path: inset(5em);
+  }
+
+  .drop-shadow:before {
+    top: 5em;
+    width: calc(100% - 10em);
+  }
+  .drop-shadow > span {
+    font-size: 4em;
+  }
+  .main-after {
+    visibility:hidden;
+  }
 }
 @media (max-width: 640px) {
   .drop-shadow > span {
@@ -348,12 +369,97 @@ body{
 }
 .bullshit{
   position: fixed;
-  right: 41%;
+  right: 42%;
   top: 60%;
+  font-family: Lucida Handwriting;
 }
-
-.errorImage{
+@font-face {
+  font-family: 'Rocher';
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+@font-palette-values --Grays {
+  font-family: Rocher;
+  base-palette: 7;
+}
+.errorMessage{
   position: fixed;
-  z-index: 1;
-
+  right: 37%;
+  top: 35%;
+  font-family: 'Rocher';
+  font-palette: --Grays;
+  border-color: aqua;
 }
+@media (max-width: 820px) {
+  .errorMessage{
+    position: fixed;
+    right: 37%;
+    top: 40%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    border-color: aqua;
+  }
+  .redirect {
+    position: fixed;
+    right: 38%;
+    display: inline-block; 
+    font-size: small;
+  }
+}
+@media (max-width: 820px) {
+  .errorMessage{
+    font-size: small;
+  }
+  .redirect {
+    font-size:smaller;
+  }
+}
+@media (max-width: 430px) {
+  .errorMessage{
+    font-size: 10px;
+  }
+  .redirect {
+    font-size:10px;
+  }
+}
+@media (max-width: 360px) {
+  .errorMessage{
+    font-size: 8px;
+  }
+  .redirect {
+    font-size:8px;
+  }
+}
+.remove-background{
+  background-color: rgba(0,0,0, 0.4);
+}
+
+.redirect {
+  display: inline-block; /* Allow inline behavior for the h4 */
+}
+
+.ellipsis {
+  /* Initial styles for the ellipsis */
+  color: black; /* Initially invisible */
+  font-size: 1.2em; /* Adjust font size for better visibility */
+}
+@keyframes pulsates{
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ellipsis:nth-child(1) {
+  animation: pulsates 1s ease-in-out infinite alternate;
+  animation-delay: 0s; /* Start immediately */
+}
+
+.ellipsis:nth-child(2) {
+  animation: pulsates 1s ease-in-out infinite alternate;
+  animation-delay: 0.2s; /* Delay by 0.2 seconds */
+}
+
+.ellipsis:nth-child(3) {
+  animation: pulsates 1s ease-in-out infinite alternate;
+  animation-delay: 0.4s; /* Delay by 0.4 seconds */
+}
+
