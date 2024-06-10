@@ -29,6 +29,7 @@ export const removeFromCart = (productId) => {
         }else return true
     })
     saveToStorage();
+    location.reload();
 }
 
 export let count;

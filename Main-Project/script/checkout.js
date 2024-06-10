@@ -13,7 +13,7 @@ const main = document.querySelector('.main')
 export let count=0;
 let orderPrice=0;
 cart.forEach((one)=>{
-  count++;
+  count+=one.quantity;
   let product = products.filter((product)=>{
     if(product.id===one.productId){
       orderPrice += Number(product.priceCents) * one.quantity;
@@ -105,6 +105,8 @@ cartItemContainer.innerHTML += `
     `
     cartItemContainer.appendChild(cartItemDiv);
     })
+  
+
 
     document.querySelector('.payment-summary').innerHTML = `
           <div class="payment-summary-title">
@@ -213,5 +215,6 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         }
       })
     )
+    location.reload()
   }
 
