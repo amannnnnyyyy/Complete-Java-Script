@@ -1,3 +1,5 @@
+
+
 export let cart = localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')):
 []
 
@@ -16,7 +18,6 @@ export const pushToCart=(productId,productName,newCart,quantity)=>{
     }
     saveToStorage()
 }
-
 export const saveToStorage = () =>{
     localStorage.setItem('cart',JSON.stringify(cart))
 }
@@ -28,4 +29,13 @@ export const removeFromCart = (productId) => {
         }else return true
     })
     saveToStorage();
+}
+
+export let count;
+export function addToCart(cart_quantity){
+    count = 0
+    cart.map((value)=>{
+        count+=value.quantity
+    })
+    cart_quantity.textContent = count;
 }

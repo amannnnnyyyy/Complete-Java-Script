@@ -5,6 +5,7 @@
 
   margin-top: 140px;
   margin-bottom: 100px;
+  
 
   /* margin-left: auto;
      margin-right auto;
@@ -37,6 +38,12 @@
     max-width: 500px;
   }
 
+  body{
+    background-color:rgb(225,225 ,225 );
+    background-color: green;
+    overflow-y: auto;
+  }
+
   .checkout-grid {
     grid-template-columns: 1fr;
   }
@@ -51,7 +58,11 @@
 
 .cart-item-container {
   margin-bottom: 12px;
+  max-height: 350px; /* Change max-height to min-height */
+  overflow-y: auto;
 }
+
+
 
 .payment-summary {
   padding-bottom: 5px;
@@ -254,6 +265,7 @@
 }
 body{
   background-color:rgb(225,225 ,225 );
+  overflow: hidden;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap");
@@ -466,4 +478,5 @@ body{
 .quantity-input{
   width:40px;
 }
+
 

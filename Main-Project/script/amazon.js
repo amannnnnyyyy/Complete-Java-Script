@@ -1,9 +1,8 @@
-import {cart,pushToCart} from '../data/cart.js';
+import {cart,pushToCart,addToCart,count} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
 const products_grid = document.querySelector('.products-grid') 
-const cart_quantity = document.querySelector('.cart-quantity')
 const toCheckout = document.querySelector('.js-to-checkout')
 let message;
 
@@ -78,7 +77,6 @@ function handleAddToCart(productName,productId){
     let newCart = cart.filter((value)=>value.productId===productId)
         quantity=Number(document.querySelector(`.select-${productId}`).value)
         display_added_message(productId)
-        //clearTimeout(timeoutId);
         pushToCart(productId,productName,newCart,quantity)
 }
 
@@ -97,16 +95,8 @@ function display_added_message(productId){
             timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
         }   
 }
-let count;
-function addToCart(){
-    count = 0
-    cart.map((value)=>{
-        count+=value.quantity
-    })
-    cart_quantity.textContent = count;
-    console.log(count)
-}
-addToCart();
+const cart_quantity = document.querySelector('.cart-quantity')
+addToCart(cart_quantity);
 
 console.log("after ",count)
 toCheckout.href="checkout.html";

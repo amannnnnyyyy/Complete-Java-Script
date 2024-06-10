@@ -1,27 +1,29 @@
-import { cart } from "../data/cart.js";
+import { addToCart, cart, pushToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
 import { saveToStorage } from "../data/cart.js";
-
+import { taxCalc } from "./utils/money.js";
 
 const cartItemContainer = document.querySelector('.cart-item-container');
-//const paymentSummary = document.querySelector('.payment-summary');
 const numberOfItems = document.querySelector('.number-of-items')
 const main = document.querySelector('.main')
-const paymentSummary = document.querySelector('.payment-summary')
 
 
 export let count=0;
+let orderPrice=0;
 cart.forEach((one)=>{
   count++;
   let product = products.filter((product)=>{
     if(product.id===one.productId){
+      orderPrice += Number(product.priceCents) * one.quantity;
       return true
     }
     return false;
   })
   
+  const cartItemDiv = document.createElement('div');
+  cartItemDiv.classList.add('cart-item');
 cartItemContainer.innerHTML += `
     <div class="cart-item-container js-container-${product[0].id}">
     <div class="delivery-date">
@@ -41,7 +43,7 @@ cartItemContainer.innerHTML += `
         </div>
         <div class="product-quantity">
           <span>
-            Quantity: <span class="quantity-label">${one.quantity}</span>
+            Quantity: <span class="quantity-label quantity-display-${product[0].id}">${one.quantity}</span>
           </span>
           <span class="update-quantity-link link-primary js-update js-update-${product[0].id}" data-product-id="${product[0].id}">
             Update
@@ -101,6 +103,7 @@ cartItemContainer.innerHTML += `
     </div>
     </div>
     `
+    cartItemContainer.appendChild(cartItemDiv);
     })
 
     document.querySelector('.payment-summary').innerHTML = `
@@ -110,7 +113,7 @@ cartItemContainer.innerHTML += `
 
           <div class="payment-summary-row">
             <div>Items (${count}):</div>
-            <div class="payment-summary-money">$42.75</div>
+            <div class="payment-summary-money">${formatCurrency(orderPrice)}</div>
           </div>
 
           <div class="payment-summary-row">
@@ -120,17 +123,17 @@ cartItemContainer.innerHTML += `
 
           <div class="payment-summary-row subtotal-row">
             <div>Total before tax:</div>
-            <div class="payment-summary-money">$47.74</div>
+            <div class="payment-summary-money">${taxCalc(formatCurrency(orderPrice)).total}</div>
           </div>
 
           <div class="payment-summary-row">
             <div>Estimated tax (10%):</div>
-            <div class="payment-summary-money">$4.77</div>
+            <div class="payment-summary-money">${taxCalc(formatCurrency(orderPrice)).taxAmount}</div>
           </div>
 
           <div class="payment-summary-row total-row">
             <div>Order total:</div>
-            <div class="payment-summary-money">$52.51</div>
+            <div class="payment-summary-money">${formatCurrency(orderPrice)}</div>
           </div>
 
           <button class="place-order-button button-primary">
@@ -171,6 +174,10 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     const editingQuantity = document.querySelector(`.js-container-${productId}`)
     button.addEventListener('click',()=>{
         document.querySelector(`.js-updateBtn-${productId} `).classList.remove('hidden')
+        document.querySelector(`.js-updateBtn-${productId} `).addEventListener('click',()=>{
+          console.log("saved",productId);
+          saveUpdatedQuantity(productId)
+        })
         document.querySelector(`.js-input-${productId}`).classList.remove('hidden')
         document.querySelector(`.js-update-${productId}`).classList.add('hidden')
         editingQuantity.classList.add('is-editing-quantity')
@@ -182,3 +189,29 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         }):null
     })
   })
+
+  let newCount;
+  function saveUpdatedQuantity(productId){
+    console.log("inside function ",productId)
+    const inputValue = document.querySelector(`.js-input-${productId}`).value
+    let quantity=Number(inputValue);
+    let newCart = cart.filter((value)=>value.productId===productId)
+    console.log(inputValue+"8c9c52b5-5a19-4bcb-a5d1-158a74287c53")
+    console.log(
+      cart.filter((value)=>{
+        if(value.productId === productId){
+          quantity -= value.quantity
+          pushToCart(productId,value.productName,newCart,quantity)
+          document.querySelector(`.quantity-display-${productId}`).textContent = inputValue
+          count+=quantity
+          newCount = 0
+    cart.map((value)=>{
+        newCount+=value.quantity
+    })
+    
+    numberOfItems.textContent = newCount+' items'
+        }
+      })
+    )
+  }
+
