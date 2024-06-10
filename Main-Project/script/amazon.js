@@ -95,8 +95,8 @@ function display_added_message(productId){
             timeoutId = setTimeout(()=>message.classList.add('hide'),2000)
         }   
 }
-const cart_quantity = document.querySelector('.cart-quantity')
-addToCart(cart_quantity);
+
+addToCart();
 
 console.log("after ",count)
 toCheckout.href="checkout.html";

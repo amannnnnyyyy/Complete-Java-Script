@@ -4,13 +4,24 @@ import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
 import { saveToStorage } from "../data/cart.js";
 import { taxCalc } from "./utils/money.js";
-
 const cartItemContainer = document.querySelector('.cart-item-container');
 const numberOfItems = document.querySelector('.number-of-items')
 const main = document.querySelector('.main')
 
 
 export let count=0;
+
+function forUpdate(){
+  cart.forEach((one)=>{
+    let product = products.filter((product)=>{
+      if(product.id===one.productId){
+        orderPrice += Number(product.priceCents) * one.quantity;
+        return true
+      }
+      return false;
+    })})
+}
+
 let orderPrice=0;
 cart.forEach((one)=>{
   count+=one.quantity;
@@ -106,8 +117,8 @@ cartItemContainer.innerHTML += `
     cartItemContainer.appendChild(cartItemDiv);
     })
   
-
-
+  orderSummary();
+  function orderSummary(){
     document.querySelector('.payment-summary').innerHTML = `
           <div class="payment-summary-title">
             Order Summary
@@ -141,7 +152,7 @@ cartItemContainer.innerHTML += `
           <button class="place-order-button button-primary">
             Place your order
           </button>
-        ` 
+        ` }
 
 count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
   document.querySelectorAll('.js-delete').forEach((button)=>{
@@ -215,6 +226,8 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         }
       })
     )
-    location.reload()
+    orderPrice = 0;
+    forUpdate();
+    orderSummary()
   }
 

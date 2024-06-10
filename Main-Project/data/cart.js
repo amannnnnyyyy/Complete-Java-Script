@@ -33,10 +33,13 @@ export const removeFromCart = (productId) => {
 }
 
 export let count;
-export function addToCart(cart_quantity){
+export function addToCart(){
+    const cart_quantity = document.querySelector('.cart-quantity')
     count = 0
     cart.map((value)=>{
         count+=value.quantity
     })
+    console.log(cart_quantity)
     cart_quantity.textContent = count;
 }
+
