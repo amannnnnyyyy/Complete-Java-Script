@@ -288,7 +288,7 @@ html+=`
       ${dayjs(new Date).add(time.deliveryDays, 'day').format('dddd, MMMM D')}
       </div>
       <div class="delivery-option-price">
-        FREE Shipping
+        ${time.priceCents?formatCurrency(time.priceCents):`FREE Shipping`}
       </div>
     </div>
   </div>
