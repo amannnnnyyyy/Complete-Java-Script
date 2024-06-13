@@ -9,6 +9,29 @@ const cartItemContainer = document.querySelector('.cart-item-container');
 const numberOfItems = document.querySelector('.number-of-items')
 const main = document.querySelector('.main')
 
+//managing the popup message
+
+const overlay = document.querySelector('.overlay')
+const popup_message = document.querySelector('.popup-message')
+const ok_popup = document.querySelector('.ok-popup')
+const close_popup = document.querySelector('.close-popup')
+const popup_body = document.querySelector('.popup-body')
+function displayCart(truth){
+  truth?overlay.classList.add('hidden'):overlay.classList.remove('hidden')
+  truth?popup_message.classList.add('hidden'):popup_message.classList.remove('hidden')
+}
+
+function sayOkToPopup(productId){
+ok_popup.addEventListener('click',()=>{
+  deleteProduct(productId)
+  displayCart(true)
+})
+}
+close_popup.addEventListener('click',()=>{
+  displayCart(true)
+})
+
+
 console.log(dayjs(new Date).format('dddd, MMMM D'))
 export let count=0;
 
@@ -66,6 +89,7 @@ cartItemContainer.innerHTML += `
             Delete
           </span>
         </div>
+        <h5 class="errorMessage-${product[0].id} error-message-update hidden">please insert positive number only</h5>
       </div>
       <div class="delivery-options">
       <div class="delivery-options-title">
@@ -120,7 +144,13 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
       let productId = button.dataset.productId;
-      removeFromCart(productId);
+      deleteProduct(productId)
+    })
+  })
+
+  //delete functionality
+  function deleteProduct(productId){
+    removeFromCart(productId);
       count--;
       document.querySelector(`.js-container-${productId}`).remove()
       count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
@@ -138,9 +168,7 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         </div>`
         setTimeout(()=>window.location = "../Main-Project/amazon.html",2000)
       }
-    })
-  })
-
+  }
 
   //update functionality
   document.querySelectorAll('.js-update').forEach((button)=>{
@@ -172,6 +200,8 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     let quantity=Number(inputValue);
     let newCart = cart.filter((value)=>value.productId===productId)
     console.log(inputValue+"8c9c52b5-5a19-4bcb-a5d1-158a74287c53")
+    if(!(quantity <= 0)){
+      console.log(quantity," ",!(quantity<=0))
     console.log(
       cart.filter((value)=>{
         if(value.productId === productId){
@@ -191,6 +221,16 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     orderPrice = 0;
     forUpdate();
     orderSummary()
+  }else if(quantity === 0){
+    displayCart(false)
+    sayOkToPopup(productId)
+  }else if(quantity < 0){
+    const error = document.querySelector(`.errorMessage-${productId}`)
+    error.classList.remove('hidden')
+    setTimeout(()=>{
+      error.classList.add('hidden')
+    },2000)
+  }
   }
   // function deliveryTimeCalc(product){
   //   let html='';
@@ -257,3 +297,4 @@ html+=`
  })
 return html;
 }
+
