@@ -276,7 +276,7 @@ function deliveryTimeCalc(product){
 
   deliveryTime.forEach((time)=>{
 
- 
+
 
 html+=`
   <div class="delivery-option">
@@ -285,14 +285,13 @@ html+=`
       name="delivery-option-${product[0].id}">
     <div>
       <div class="delivery-option-date">
-        Tuesday, June 21
+      ${dayjs(new Date).add(time.deliveryDays, 'day').format('dddd, MMMM D')}
       </div>
       <div class="delivery-option-price">
         FREE Shipping
       </div>
     </div>
   </div>
-</div>
 `
  })
 return html;

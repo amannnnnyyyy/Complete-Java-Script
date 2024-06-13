@@ -1,9 +1,10 @@
 export const deliveryTime = [
     {
         id:"1",
-        deliveryDays:7,
-        priceCents:0,
-    },
+        deliveryDays:1,
+        priceCents:999,
+    }
+,
     {
         id:"2",
         deliveryDays:3,
@@ -11,8 +12,8 @@ export const deliveryTime = [
     },
     {
         id:"3",
-        deliveryDays:1,
-        priceCents:999,
+        deliveryDays:7,
+        priceCents:0,
     }
-
+    
 ]
