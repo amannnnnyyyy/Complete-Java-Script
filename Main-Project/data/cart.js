@@ -8,7 +8,8 @@ export const pushToCart=(productId,productName,newCart,quantity)=>{
         cart.push({
             productId,
             productName,
-            quantity:quantity
+            quantity:quantity,
+            deliveryOptionId:'1'
         })
     else {
         cart.map((value)=>{
