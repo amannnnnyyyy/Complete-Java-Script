@@ -1,10 +1,16 @@
-import { addToCart, cart, pushToCart } from "../data/cart.js";
+import { addToCart, cart, pushToCart, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { removeFromCart } from "../data/cart.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import { taxCalc } from "./utils/money.js";
 import { deliveryTime } from "../data/deliveryOptions.js";
+
+export let count;
+
+function renderOrderSummary(){
+let deliveryPrice;
+
 const cartItemContainer = document.querySelector('.cart-item-container');
 const numberOfItems = document.querySelector('.number-of-items')
 const main = document.querySelector('.main')
@@ -16,6 +22,7 @@ const popup_message = document.querySelector('.popup-message')
 const ok_popup = document.querySelector('.ok-popup')
 const close_popup = document.querySelector('.close-popup')
 const popup_body = document.querySelector('.popup-body')
+
 function displayCart(truth){
   truth?overlay.classList.add('hidden'):overlay.classList.remove('hidden')
   truth?popup_message.classList.add('hidden'):popup_message.classList.remove('hidden')
@@ -33,7 +40,7 @@ close_popup.addEventListener('click',()=>{
 
 
 console.log(dayjs(new Date).format('dddd, MMMM D'))
-export let count=0;
+count=0;
 
 function forUpdate(){
   cart.forEach((one)=>{
@@ -59,10 +66,23 @@ cart.forEach((one)=>{
   
   const cartItemDiv = document.createElement('div');
   cartItemDiv.classList.add('cart-item');
+  
+  const deliveryOptionId= one.deliveryOptionId;
+let deliveryOption=2;
+deliveryTime.forEach((option)=>{
+  if(option.id === deliveryOptionId){
+    deliveryOption = option;
+  }
+})
+
+
+let deliveryDate = dayjs(new Date).add(deliveryOption.deliveryDays, 'day').format('dddd, MMMM D')
+  
+
 cartItemContainer.innerHTML += `
     <div class="cart-item-container js-container-${product[0].id}">
     <div class="delivery-date">
-      Delivery date: Tuesday, June 21
+      Delivery date: ${deliveryDate}
     </div>
 
     <div class="cart-item-details-grid">
@@ -95,7 +115,7 @@ cartItemContainer.innerHTML += `
       <div class="delivery-options-title">
         Choose a delivery option:
       </div>
-      ${deliveryTimeCalc(product)}
+      ${deliveryTimeCalc(product,one).html}
       </div>
       </div>
     </div>
@@ -117,7 +137,7 @@ cartItemContainer.innerHTML += `
 
           <div class="payment-summary-row">
             <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">$4.99</div>
+            <div class="payment-summary-money">$${deliveryPrice}</div>
           </div>
 
           <div class="payment-summary-row subtotal-row">
@@ -269,20 +289,21 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
   
   // })}
 
-function deliveryTimeCalc(product){
+function deliveryTimeCalc(product,cartItem){
   let today = dayjs()
   let deliveryDate = dayjs(new Date).add(1, 'day').format('dddd, MMMM D')
   let html='';
+  let price;
 
   deliveryTime.forEach((time)=>{
+    const isChecked = time.id === cartItem.deliveryOptionId;
 
-
-
+  price = formatCurrency(time.priceCents)
 html+=`
   <div class="delivery-option">
-    <input type="radio" checked
-      class="delivery-option-input"
-      name="delivery-option-${product[0].id}">
+    <input type="radio" ${isChecked ?`checked`:``}
+      class="delivery-option-input radio-input"
+      name="delivery-option-${product[0].id}" data-product-id = "${product[0].id}" data-delivery-option-id="${time.id}" data-delivery-price="${time.priceCents}">
     <div>
       <div class="delivery-option-date">
       ${dayjs(new Date).add(time.deliveryDays, 'day').format('dddd, MMMM D')}
@@ -294,6 +315,20 @@ html+=`
   </div>
 `
  })
-return html;
+ console.log(price)
+return {html:html,price:price};
 }
 
+const radio_input = document.querySelectorAll('.radio-input').forEach((radio)=>radio.addEventListener('click',()=>{
+  let productId = radio.dataset.productId;
+  let deliveryOptionId = radio.dataset.deliveryOptionId;
+  let deliveryOptionPrice = radio.dataset.deliveryPrice;
+  updateDeliveryOption(productId,deliveryOptionId)
+  cartItemContainer.innerHTML = '';
+  renderOrderSummary()
+}))
+}
+
+
+
+renderOrderSummary()
