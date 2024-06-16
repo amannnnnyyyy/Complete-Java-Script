@@ -17,3 +17,14 @@ export const deliveryTime = [
     }
     
 ]
+
+
+export function getDeliveryOption(deliveryOptionId){
+    let deliveryOption;
+deliveryTime.forEach((option)=>{
+  if(option.id === deliveryOptionId){
+    deliveryOption = option;
+  }
+})
+return deliveryOption || deliveryTime[0];
+}

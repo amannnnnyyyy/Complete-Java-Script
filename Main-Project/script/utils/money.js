@@ -1,6 +1,6 @@
 export const formatCurrency=(price)=>
 {
-    return '$'+(price/100).toFixed(2);
+    return '$'+(Math.round(price)/100).toFixed(2);
 }
 const tax = 15/100;
 export const taxCalc=(price)=>{

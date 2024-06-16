@@ -1,10 +1,11 @@
 import { addToCart, cart, pushToCart, updateDeliveryOption } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { removeFromCart } from "../../data/cart.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import { taxCalc } from "../utils/money.js";
-import { deliveryTime } from "../../data/deliveryOptions.js";
+import { deliveryTime, getDeliveryOption } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export let count;
 
@@ -55,61 +56,53 @@ function forUpdate(){
 
 let orderPrice=0;
 cart.forEach((one)=>{
+    
   count+=one.quantity;
-  let product = products.filter((product)=>{
-    if(product.id===one.productId){
-      orderPrice += Number(product.priceCents) * one.quantity;
-      return true
-    }
-    return false;
-  })
+  const product = getProduct(one.productId)
+  orderPrice += Number(product.priceCents) * one.quantity;
+ 
   
   const cartItemDiv = document.createElement('div');
   cartItemDiv.classList.add('cart-item');
   
   const deliveryOptionId= one.deliveryOptionId;
-let deliveryOption=2;
-deliveryTime.forEach((option)=>{
-  if(option.id === deliveryOptionId){
-    deliveryOption = option;
-  }
-})
+const deliveryOption=getDeliveryOption(deliveryOptionId);
 
 
 let deliveryDate = dayjs(new Date).add(deliveryOption.deliveryDays, 'day').format('dddd, MMMM D')
-  
+
 
 cartItemContainer.innerHTML += `
-    <div class="cart-item-container js-container-${product[0].id}">
+    <div class="cart-item-container js-container-${product.id}">
     <div class="delivery-date">
       Delivery date: ${deliveryDate}
     </div>
 
     <div class="cart-item-details-grid">
       <img class="product-image"
-        src="${product[0].image}">
+        src="${product.image}">
 
       <div class="cart-item-details">
         <div class="product-name">
           ${one.productName}
         </div>
         <div class="product-price">
-          ${formatCurrency(product[0].priceCents)}
+          ${formatCurrency(product.priceCents)}
         </div>
         <div class="product-quantity">
           <span>
-            Quantity: <span class="quantity-label quantity-display-${product[0].id}">${one.quantity}</span>
+            Quantity: <span class="quantity-label quantity-display-${product.id}">${one.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary js-update js-update-${product[0].id}" data-product-id="${product[0].id}">
+          <span class="update-quantity-link link-primary js-update js-update-${product.id}" data-product-id="${product.id}">
             Update
           </span>
-          <input class="quantity-input hidden js-input-${product[0].id}" type="number" placeholder="update quantity here">
-          <span class="hidden save-quantity-link link-primary js-updateBtn-${product[0].id}">Save</span>
-          <span class="delete-quantity-link link-primary js-delete js-delete-${product[0].id}" data-product-id="${product[0].id}">
+          <input class="quantity-input hidden js-input-${product.id}" type="number" placeholder="update quantity here">
+          <span class="hidden save-quantity-link link-primary js-updateBtn-${product.id}">Save</span>
+          <span class="delete-quantity-link link-primary js-delete js-delete-${product.id}" data-product-id="${product.id}">
             Delete
           </span>
         </div>
-        <h5 class="errorMessage-${product[0].id} error-message-update hidden">please insert positive number only</h5>
+        <h5 class="errorMessage-${product.id} error-message-update hidden">please insert positive number only</h5>
       </div>
       <div class="delivery-options">
       <div class="delivery-options-title">
@@ -126,38 +119,8 @@ cartItemContainer.innerHTML += `
   orderSummary();
   function orderSummary(){
     document.querySelector('.payment-summary').innerHTML = `
-          <div class="payment-summary-title">
-            Order Summary
-          </div>
-
-          <div class="payment-summary-row">
-            <div>Items (${count}):</div>
-            <div class="payment-summary-money">${formatCurrency(orderPrice)}</div>
-          </div>
-
-          <div class="payment-summary-row">
-            <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">$${deliveryPrice}</div>
-          </div>
-
-          <div class="payment-summary-row subtotal-row">
-            <div>Total before tax:</div>
-            <div class="payment-summary-money">${taxCalc(formatCurrency(orderPrice)).total}</div>
-          </div>
-
-          <div class="payment-summary-row">
-            <div>Estimated tax (10%):</div>
-            <div class="payment-summary-money">${taxCalc(formatCurrency(orderPrice)).taxAmount}</div>
-          </div>
-
-          <div class="payment-summary-row total-row">
-            <div>Order total:</div>
-            <div class="payment-summary-money">${formatCurrency(orderPrice)}</div>
-          </div>
-
-          <button class="place-order-button button-primary">
-            Place your order
-          </button>
+          ${renderPaymentSummary(count)}
+  
         ` }
 
 count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
@@ -252,42 +215,7 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     },2000)
   }
   }
-  // function deliveryTimeCalc(product){
-  //   let html='';
-  //   deliveryTime.forEach((time)=>{
-  //     console.log(time)
-  //   let today = dayjs()
-  //   let deliveryDate=today.add(
-  //     time.deliveryDays,
-  //     'days'
-  //   )
-  //   let dateString = deliveryDate.format('dddd, MMMM D')
-  //   const priceString = time.priceCents===0
-  //     ?'Free'
-  //     :`${formatCurrency(time.priceCents)} -`
   
-  // html+=`<div class="delivery-options">
-  //   <div class="delivery-options-title">
-  //     Choose a delivery option:
-  //   </div>
-  //   <div class="delivery-option">
-  //     <input type="radio" checked
-  //       class="delivery-option-input"
-  //       name="delivery-option-${product[0].id}">
-  //     <div>
-  //       <div class="delivery-option-date">
-  //         ${dateString}
-  //       </div>
-  //       <div class="delivery-option-price">
-  //         ${priceString}
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  // </div>`
-  // return html;
-  
-  // })}
 
 function deliveryTimeCalc(product,cartItem){
   let today = dayjs()
@@ -303,7 +231,7 @@ html+=`
   <div class="delivery-option">
     <input type="radio" ${isChecked ?`checked`:``}
       class="delivery-option-input radio-input"
-      name="delivery-option-${product[0].id}" data-product-id = "${product[0].id}" data-delivery-option-id="${time.id}" data-delivery-price="${time.priceCents}">
+      name="delivery-option-${product.id}" data-product-id = "${product.id}" data-delivery-option-id="${time.id}" data-delivery-price="${time.priceCents}">
     <div>
       <div class="delivery-option-date">
       ${dayjs(new Date).add(time.deliveryDays, 'day').format('dddd, MMMM D')}
