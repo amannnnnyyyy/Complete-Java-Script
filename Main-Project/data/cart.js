@@ -35,13 +35,15 @@ export const saveToStorage = () =>{
 }
 
 export const removeFromCart = (productId) => {
+    let quantityCount=0;
     cart = cart.filter((value)=>{
         if(value.productId===productId){
+            quantityCount = value.quantity;
             return false;
         }else return true
     })
     saveToStorage();
-    location.reload();
+ return quantityCount;
 }
 
 export let count;

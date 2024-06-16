@@ -116,12 +116,10 @@ cartItemContainer.innerHTML += `
     cartItemContainer.appendChild(cartItemDiv);
     })
   
-  orderSummary();
-  function orderSummary(){
-    document.querySelector('.payment-summary').innerHTML = `
-          ${renderPaymentSummary(count)}
-  
-        ` }
+
+    //render Payment Summary page
+          renderPaymentSummary(count)
+ 
 
 count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
   document.querySelectorAll('.js-delete').forEach((button)=>{
@@ -133,8 +131,8 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
 
   //delete functionality
   function deleteProduct(productId){
-    removeFromCart(productId);
-      count--;
+    const countQuantity = removeFromCart(productId);
+    count=count-countQuantity;
       document.querySelector(`.js-container-${productId}`).remove()
       count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
       if(!count) {
@@ -151,6 +149,7 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         </div>`
         setTimeout(()=>window.location = "../Main-Project/amazon.html",2000)
       }
+      renderPaymentSummary();
   }
 
   //update functionality
@@ -172,8 +171,10 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
           document.querySelector(`.js-input-${productId}`).classList.add('hidden')
           document.querySelector(`.js-update-${productId}`).classList.remove('hidden')
           editingQuantity.classList.remove('is-editing-quantity')
+          renderPaymentSummary()
         }):null
     })
+  
   })
 
   let newCount;
