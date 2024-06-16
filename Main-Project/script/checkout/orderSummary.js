@@ -6,6 +6,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import { taxCalc } from "../utils/money.js";
 import { deliveryTime, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export let count;
 
@@ -40,7 +41,7 @@ close_popup.addEventListener('click',()=>{
 })
 
 
-console.log(dayjs(new Date).format('dddd, MMMM D'))
+// console.log(dayjs(new Date).format('dddd, MMMM D'))
 count=0;
 
 function forUpdate(){
@@ -118,10 +119,11 @@ cartItemContainer.innerHTML += `
   
 
     //render Payment Summary page
+    console.log("items: ",count)
           renderPaymentSummary(count)
- 
-
-count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
+          console.log("for header count ",count)
+          renderCheckoutHeader(count)
+// count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
   document.querySelectorAll('.js-delete').forEach((button)=>{
     button.addEventListener('click',()=>{
       let productId = button.dataset.productId;
@@ -134,9 +136,9 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     const countQuantity = removeFromCart(productId);
     count=count-countQuantity;
       document.querySelector(`.js-container-${productId}`).remove()
-      count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
+      // count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No Items'
+      renderCheckoutHeader(count)
       if(!count) {
-        console.log("no count") 
       document.body.classList.add('remove-background')
       main.classList.add('main-after')
       document.body.innerHTML += `
@@ -149,7 +151,7 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
         </div>`
         setTimeout(()=>window.location = "../Main-Project/amazon.html",2000)
       }
-      renderPaymentSummary();
+      renderPaymentSummary(count);
   }
 
   //update functionality
@@ -160,7 +162,6 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     button.addEventListener('click',()=>{
         document.querySelector(`.js-updateBtn-${productId} `).classList.remove('hidden')
         document.querySelector(`.js-updateBtn-${productId} `).addEventListener('click',()=>{
-          console.log("saved",productId);
           saveUpdatedQuantity(productId)
         })
         document.querySelector(`.js-input-${productId}`).classList.remove('hidden')
@@ -171,7 +172,7 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
           document.querySelector(`.js-input-${productId}`).classList.add('hidden')
           document.querySelector(`.js-update-${productId}`).classList.remove('hidden')
           editingQuantity.classList.remove('is-editing-quantity')
-          renderPaymentSummary()
+          renderPaymentSummary(count)
         }):null
     })
   
@@ -179,13 +180,10 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
 
   let newCount;
   function saveUpdatedQuantity(productId){
-    console.log("inside function ",productId)
     const inputValue = document.querySelector(`.js-input-${productId}`).value
     let quantity=Number(inputValue);
     let newCart = cart.filter((value)=>value.productId===productId)
-    console.log(inputValue+"8c9c52b5-5a19-4bcb-a5d1-158a74287c53")
     if(!(quantity <= 0)){
-      console.log(quantity," ",!(quantity<=0))
     console.log(
       cart.filter((value)=>{
         if(value.productId === productId){
@@ -197,14 +195,13 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
     cart.map((value)=>{
         newCount+=value.quantity
     })
-    
-    numberOfItems.textContent = newCount+' items'
+    renderCheckoutHeader(newCount)
+    // numberOfItems.textContent = newCount+' items'
         }
       })
     )
     orderPrice = 0;
     forUpdate();
-    orderSummary()
   }else if(quantity === 0){
     displayCart(false)
     sayOkToPopup(productId)
@@ -219,8 +216,6 @@ count?numberOfItems.textContent = count+' items':numberOfItems.textContent = 'No
   
 
 function deliveryTimeCalc(product,cartItem){
-  let today = dayjs()
-  let deliveryDate = dayjs(new Date).add(1, 'day').format('dddd, MMMM D')
   let html='';
   let price;
 
@@ -244,7 +239,6 @@ html+=`
   </div>
 `
  })
- console.log(price)
 return {html:html,price:price};
 }
 
@@ -256,5 +250,6 @@ const radio_input = document.querySelectorAll('.radio-input').forEach((radio)=>r
   cartItemContainer.innerHTML = '';
   renderOrderSummary()
 }))
+return count
 }
 
