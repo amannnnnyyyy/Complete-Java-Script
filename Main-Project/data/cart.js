@@ -1,6 +1,9 @@
 
+export let cart
+loadFromStorage()
 
-export let cart = localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')):
+export function loadFromStorage(){
+   cart = localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')):
 [{
     productId:`e43638ce-6aa0-4b85-b27f-e1d07eb678c6`,
     productName:'Product 1',
@@ -13,8 +16,12 @@ export let cart = localStorage.getItem('cart')?JSON.parse(localStorage.getItem('
     quantity:1,
     deliveryOptionId:'1'
 }]
+}
 
-export const pushToCart=(productId,productName,newCart,quantity)=>{
+
+
+
+export const pushToCart=(productId='',productName='',newCart=[],quantity=0)=>{
     if(!newCart.find(o=>o.productId===productId))
         cart.push({
             productId,
