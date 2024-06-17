@@ -67,7 +67,7 @@ cart.forEach((one)=>{
   cartItemDiv.classList.add('cart-item');
   
   const deliveryOptionId= one.deliveryOptionId;
-const deliveryOption=getDeliveryOption(deliveryOptionId);
+  const deliveryOption=getDeliveryOption(deliveryOptionId);
 
 
 let deliveryDate = dayjs(new Date).add(deliveryOption.deliveryDays, 'day').format('dddd, MMMM D')
@@ -91,7 +91,7 @@ cartItemContainer.innerHTML += `
           ${formatCurrency(product.priceCents)}
         </div>
         <div class="product-quantity">
-          <span>
+          <span class="js-quantity-${product.id}">
             Quantity: <span class="quantity-label quantity-display-${product.id}">${one.quantity}</span>
           </span>
           <span class="update-quantity-link link-primary js-update js-update-${product.id}" data-product-id="${product.id}">

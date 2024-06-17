@@ -16,10 +16,50 @@
   <!-- include source files here... -->
   <script src="./script/utils/moneyTest.js" type="module"></script>
   <script src="./data/cartTest.js" type="module"></script>
+  <script type="module" src="./script/checkout/orderSummaryTest.js"></script>
 
 
 </head>
 
 <body>
+  <div class="everythingHTML">
+    <div class="checkout-header">
+      <div class="header-content">
+        <div class="checkout-header-left-section">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
+        </div>
+
+        <div class="checkout-header-middle-section">
+        </div>
+
+        <div class="checkout-header-right-section">
+          <img src="images/icons/checkout-lock-icon.png">
+        </div>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+    <div class="popup-message hidden">
+      <span class="popup-title">Message</span><br>
+      <span class="popup-body">Did you want to delete this product?</span>
+      <button title="Do not delete" class="close-popup">X</button>
+      <button title="You are deleting the product" class="ok-popup">Yes</button>
+    </div>
+
+    <div class="main">
+      <div class="page-title">Review your order</div>
+
+      <div class="checkout-grid">
+        <div class="order-summary">
+          <div class="cart-item-container"></div>  
+        </div>
+
+        <div class="payment-summary">
+        </div>
+      </div>
+    </div>
+    <div class="payment-summary"></div></div>
 </body>
 </html>
