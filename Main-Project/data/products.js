@@ -35,6 +35,10 @@ class Product{
     return formatCurrency(this.priceCents)
   }
 
+  extraInfoHTML(){
+    return '';
+  }
+
 }
 
 
@@ -699,9 +703,23 @@ const productsGenerate = [
   }
 ];
 
+
+class Clothing extends Product{
+  sizeChartLink;
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    return `<a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`
+  }
+}
+//target = _blank tells it to open in a new tab   
+
 export const products = productsGenerate.map((productDetails)=>{
+  if(productDetails.type !== "clothing")
   return new Product(productDetails)
+  return new Clothing(productDetails)
 })
-
-
 

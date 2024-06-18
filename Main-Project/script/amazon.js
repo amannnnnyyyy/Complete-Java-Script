@@ -45,6 +45,8 @@ products.map((product)=>{
                 </select>
             </div>
 
+            ${product.extraInfoHTML()}
+
             <div class="product-spacer"></div>
 
             <div class="added-to-cart js-message-${product.id} hide">
