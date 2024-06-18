@@ -9,6 +9,48 @@ export function getProduct(productId){
   return matchingProduct;
 }
 
+/*
+function thisLog(){
+  console.log(this);
+}
+thisLog();
+thisLog.call('custom')
+
+console.log("outside arrow function",this)
+const object = {
+  method: ()=>{
+    console.log("Inside arrow function ",this);
+  }
+}
+
+
+object.method();
+
+
+const obj ={
+  method(){
+    console.log("without arrow function method ",this);
+
+    [1,2,3].forEach(function(){
+      console.log("without arrow function forEach ",this)
+    })
+  }
+}
+
+obj.method();
+
+const obj2 ={
+  method(){
+    console.log("with arrow function method ",this);
+
+    [1,2,3].forEach(()=>{
+      console.log("with arrow function forEach ",this)
+    })
+  }
+}
+
+obj2.method();
+*/
 
 class Product{
   id;
