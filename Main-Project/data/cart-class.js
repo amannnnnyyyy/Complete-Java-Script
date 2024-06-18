@@ -1,16 +1,17 @@
 class Cart{
     count=undefined;
     count=undefined;
-    storage = undefined;
+    #storage = undefined;
 
     constructor(value){
-        this.storage=value;
+        this.#storage=value;
+        this.#loadFromStorage()
     }
 
 
-    loadFromStorage(){
+    #loadFromStorage(){
         console.log("loading from storage")
-        this.cartItems = JSON.parse(localStorage.getItem(this.storage));
+        this.cartItems = JSON.parse(localStorage.getItem(this.#storage));
         if(!this.cartItems){
         this.cartItems=[{
             productId:`e43638ce-6aa0-4b85-b27f-e1d07eb678c6`,
@@ -25,13 +26,13 @@ class Cart{
         }
 
         saveToStorage(){
-            localStorage.setItem(this.storage,JSON.stringify(this.cartItems))
+            localStorage.setItem(this.#storage,JSON.stringify(this.cartItems))
         }
 
 
 
         pushToCart(productId='',quantity=0){
-            this.loadFromStorage()
+            this.#loadFromStorage()
                 if(this.cartItems&& !this.cartItems.find(o=>o.productId===productId))
                     {
                     this.cartItems.push({
@@ -93,12 +94,9 @@ class Cart{
     
     const cart = new Cart('cart');
     const businessCart = new Cart('cart-bis');
-    cart.loadFromStorage();
-    businessCart.loadFromStorage();
     businessCart.pushToCart(`e43638ce-9090-4b85-b27f-e1d07eb678c6`,50)
-    businessCart.loadFromStorage();
     
-    console.log("cart ",cart)
-    console.log("business ",businessCart)
+    console.log("cart",cart)
+    console.log("business",businessCart)
     
     
