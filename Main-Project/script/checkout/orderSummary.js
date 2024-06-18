@@ -88,7 +88,7 @@ cartItemContainer.innerHTML += `
           ${one.productName}
         </div>
         <div class="product-price">
-          ${formatCurrency(product.priceCents)}
+          ${product.getPrice()}
         </div>
         <div class="product-quantity">
           <span class="js-quantity-${product.id}">
