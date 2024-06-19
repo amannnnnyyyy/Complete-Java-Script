@@ -5,11 +5,21 @@ import { loadProducts } from '../data/products.js'
 //import '../data/car.js'
 //import '../data/back-end-practice.js'
 
-//after fetch (a better way to make http requests) instead of XMLHttpRequest
-loadProducts().then(()=>{
+
+//using async await
+async function loadPage(){
+    await loadProducts();
     const count = renderOrderSummary()
     renderPaymentSummary(count)
-})
+}
+loadPage()
+
+
+//after fetch (a better way to make http requests) instead of XMLHttpRequest
+// loadProducts().then(()=>{
+//     const count = renderOrderSummary()
+//     renderPaymentSummary(count)
+// })
 
 
 
