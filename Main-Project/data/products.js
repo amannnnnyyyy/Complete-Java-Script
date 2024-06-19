@@ -81,6 +81,9 @@ class Product{
     return '';
   }
 
+  getApplianceInfo(){
+    return '';
+  }
 }
 
 
@@ -144,7 +147,10 @@ const productsGenerate = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -159,7 +165,10 @@ const productsGenerate = [
       "plates",
       "kitchen",
       "dining"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
@@ -173,7 +182,10 @@ const productsGenerate = [
     keywords: [
       "kitchen",
       "cookware"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "dd82ca78-a18b-4e2a-9250-31e67412f98d",
@@ -759,9 +771,29 @@ class Clothing extends Product{
 }
 //target = _blank tells it to open in a new tab   
 
-export const products = productsGenerate.map((productDetails)=>{
-  if(productDetails.type !== "clothing")
-  return new Product(productDetails)
-  return new Clothing(productDetails)
-})
 
+
+class Appliance extends Product{
+  instructionsLink;
+  warrantyLink;
+  constructor(details){
+    super(details);
+    this.instructionsLink = details.instructionsLink;
+    this.warrantyLink = details.warrantyLink;
+  }
+  getApplianceInfo(){
+    return `<a href="${this.warrantyLink}" target="_blank">Warranty</a>
+            <a href="${this.instructionsLink}" target="_blank">Instruction</a>`
+  }
+}
+
+
+
+export const products = productsGenerate.map((productDetails)=>{
+  if(productDetails.type === "clothing")
+    return new Clothing(productDetails)
+  else if(productDetails.type ==="appliance")
+    return new Appliance(productDetails)
+  return new Product(productDetails)
+  
+})

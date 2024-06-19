@@ -46,7 +46,7 @@ products.map((product)=>{
             </div>
 
             ${product.extraInfoHTML()}
-
+            ${product.getApplianceInfo()}
             <div class="product-spacer"></div>
 
             <div class="added-to-cart js-message-${product.id} hide">
