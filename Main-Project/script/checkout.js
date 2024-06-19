@@ -5,8 +5,19 @@ import { loadProducts } from '../data/products.js'
 //import '../data/car.js'
 //import '../data/back-end-practice.js'
 
-loadProducts(()=>{
+
+//using Promise
+new Promise((resolve)=>{
+    loadProducts(()=>{
+        resolve();
+    })
+}).then(()=>{
     const count = renderOrderSummary()
     renderPaymentSummary(count)
 })
+
+// loadProducts(()=>{
+//     const count = renderOrderSummary()
+//     renderPaymentSummary(count)
+// })
 
