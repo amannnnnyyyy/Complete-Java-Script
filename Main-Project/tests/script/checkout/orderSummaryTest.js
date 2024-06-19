@@ -6,12 +6,18 @@ describe("test suite: renderOrderSummary",()=>{
     let productId2 
     let container =  document.querySelector('.cart-item-container')
 
+    // beforeAll((done)=>{
+    //     loadProducts(()=>{
+    //         done();
+    //     });
+    // })
+
+    //using fetch
     beforeAll((done)=>{
-        loadProducts(()=>{
+        loadProducts().then(()=>{
             done();
         });
     })
-
 
 
     beforeEach(()=>{

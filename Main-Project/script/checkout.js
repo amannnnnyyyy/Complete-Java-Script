@@ -5,16 +5,23 @@ import { loadProducts } from '../data/products.js'
 //import '../data/car.js'
 //import '../data/back-end-practice.js'
 
-
-//using Promise
-new Promise((resolve)=>{
-    loadProducts(()=>{
-        resolve();
-    })
-}).then(()=>{
+//after fetch (a better way to make http requests) instead of XMLHttpRequest
+loadProducts().then(()=>{
     const count = renderOrderSummary()
     renderPaymentSummary(count)
 })
+
+
+
+//using Promise
+// new Promise((resolve)=>{
+//     loadProducts(()=>{
+//         resolve();
+//     })
+// }).then(()=>{
+//     const count = renderOrderSummary()
+//     renderPaymentSummary(count)
+// })
 
 // loadProducts(()=>{
 //     const count = renderOrderSummary()
