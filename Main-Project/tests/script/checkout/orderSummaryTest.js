@@ -44,10 +44,6 @@ describe("test suite: renderOrderSummary",()=>{
         document.querySelector('.everythingHTML').innerHTML = ``
     })
 
-    beforeAll(()=>{
-
-    })
-
 
     it("should render orderSummary and display cart",()=>{
         expect(document.querySelectorAll('.cart-item-container').length).toEqual(4)
@@ -64,6 +60,5 @@ describe("test suite: renderOrderSummary",()=>{
 
             expect(cart[0].productId).toEqual(productId2)
 
-           
     })
 })
