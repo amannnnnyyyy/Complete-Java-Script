@@ -2,6 +2,7 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../utils/money.js";
+import { addOrder } from "../../data/orders.js";
 
 export function renderPaymentSummary(count=0){
     console.log("count: " + count);
@@ -19,7 +20,8 @@ export function renderPaymentSummary(count=0){
     })
     const totalBeforeTaxCents = priceShippingCents + orderPrice;
     const taxCents = totalBeforeTaxCents*0.1
-    const totalCents = totalBeforeTaxCents + taxCents;
+    const totalCostCents = totalBeforeTaxCents + taxCents;
+    console.log("total cost : ", totalCostCents)
 
     const paymentSummaryHtml = `
     <div class="payment-summary-title">
@@ -48,12 +50,35 @@ export function renderPaymentSummary(count=0){
 
         <div class="payment-summary-row total-row">
             <div>Order total:</div>
-            <div class="payment-summary-money">${formatCurrency(totalCents)}</div>
+            <div class="payment-summary-money">${formatCurrency(totalCostCents)}</div>
         </div>
 
         <button class="place-order-button button-primary">
             Place your order
         </button>
     `
-return     document.querySelector('.payment-summary').innerHTML = paymentSummaryHtml;
+    
+document.querySelector('.payment-summary').innerHTML = paymentSummaryHtml;
+
+document.querySelector('.place-order-button').addEventListener('click',async ()=>{
+    try {
+        const response = await fetch('https://supersimplebackend.dev/orders',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            cart:cart,
+            deliveryOptionId:cart[0].deliveryOptionId
+        })
+    });
+    console.log(cart)
+    const order = await response.json();
+    addOrder(order);
+    } catch (error) {
+        console.log('Unexpected Error ',error.message)
+    }
+    window.location.href=('orders.html')
+    
+})
 }
