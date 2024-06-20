@@ -799,7 +799,7 @@ class Appliance extends Product{
 }
 
 //using fetch (which uses promise)
-export function loadProducts(fun){
+export function loadProducts(){
   const promise = fetch('https://supersimplebackend.dev/products')
   .then((response)=>{
     return response.json();

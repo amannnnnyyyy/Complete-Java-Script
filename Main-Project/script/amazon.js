@@ -2,7 +2,9 @@ import {cart,pushToCart,addToCart,count} from '../data/cart.js';
 import { products, loadProducts} from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
-loadProducts(renderProducts);
+loadProducts().then(()=>{
+    renderProducts()
+});
 
 
 
