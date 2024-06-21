@@ -256,3 +256,65 @@ promise.then(onFulfillment)
 
 
         
+//////async await
+
+async function asyncAFunc(){
+    let promise = new Promise((resolve,reject)=>{
+        setTimeout(()=>{resolve("waiting for async")},1000)
+    })
+    let name = await promise;
+    return name
+}
+
+//asyncAFunc().then((value)=>console.log(value));
+async function asyncAFunc2(){
+    let promise = new Promise((resolve,reject)=>{
+        setTimeout(()=>{resolve("waiting for async 2")},2000)
+    })
+    let name = await promise;
+    return name
+}
+
+//asyncAFunc2().then((value)=>console.log(value));
+
+function resolveHello(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{resolve("Hello")},8000)
+    })
+}
+
+function resolveWorld(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{resolve("World")},6000)
+    })
+}
+
+
+async function sequentialStart(){
+    const hello = await resolveHello();
+    console.log(hello) 
+    const world = await resolveWorld();
+    console.log(world)
+}
+//sequentialStart()
+//time taken = 14 seconds
+async function concurrentStart(){
+    const hello = resolveHello();
+    const world = resolveWorld();
+    console.log(await hello) 
+    console.log(await world)
+}
+
+//concurrentStart();
+//time taken = 8 seconds   hello world displayed in order
+
+
+async function parallelStart(){
+    Promise.all([
+        (async () => console.log(await resolveHello()))(),
+        (async () => console.log(await resolveWorld()))()
+    ])
+}
+
+//parallelStart()
+//time taken 8 seconds but world displayed first
