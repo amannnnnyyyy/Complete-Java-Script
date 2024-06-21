@@ -38,7 +38,7 @@ function sum(a,b,c){
 }
 
 
-console.log(sum(1,2,3));
+//console.log(sum(1,2,3));
 
 function sumCurrying(fn){
     return  function(a){
@@ -53,7 +53,7 @@ const curry = sumCurrying(sum)
 const first = curry(1)
 const second = first(2)
 const third = second(3)
-console.log(third)
+//console.log(third)
 //console.log(curry(1)(2)(3));
 
 
@@ -65,7 +65,7 @@ const person = {
     }
 }
 
-person.sayName()
+//person.sayName()
 
 
 //Explicit binding
@@ -73,15 +73,15 @@ function sayMyName(){
     console.log(this.name)
 }
 
-sayMyName.call(person)
+//sayMyName.call(person)
 
 function Person3(name){
     this.name = name;
     console.log(this.name)
 }
 
-const p1 = new Person3("name_e")
-console.log("The name is : ",p1.name)
+//const p1 = new Person3("name_e")
+//console.log("The name is : ",p1.name)
 
 
 //New binding
@@ -90,7 +90,7 @@ function Person4(name){
     console.log(this.name)
 }
 
-const p4 = new Person4('John')
+//const p4 = new Person4('John')
 
 
 //Prototype
@@ -106,9 +106,9 @@ Person5.prototype.getFullName = function(){
     return `${this.firstName}'s last name is ${this.lastName}`
 }
 
-console.log(p5.getFullName())
+//console.log(p5.getFullName())
 
-console.log(p6.getFullName())
+//console.log(p6.getFullName())
 
 Person5.prototype.sayName = function(){
     console.log(this.name)
@@ -126,17 +126,15 @@ SuperHero.prototype.fightCrime = function(){
 }
 
 const batman = new SuperHero('batman','fatherless');
-console.log(batman.fightCrime())
+//console.log(batman.fightCrime())
 SuperHero.prototype = Object.create(Person5.prototype);
 const batman2 = new SuperHero('batman','fatherless');
 SuperHero.prototype.constructor = SuperHero;
-console.log(batman2.getFullName());
+//console.log(batman2.getFullName());
 
 
-
+//classes
 class Nama{
-    firstName;
-    lastName;
     constructor(fName,lName){
         this.firstName = fName;
         this.lastName = lName;
@@ -147,17 +145,114 @@ class Nama{
 }
 
 class NamaBiraa extends Nama{
-    isSuperHero = true;
     constructor(fName,lName){
         super(fName,lName)
+        this.isSuperHero = true;
     }
     fightCrime = function(){
-        console.log(`${this.firstName} is fighting crime`)
+        console.log(`${this.firstName} is fighting crime in class`)
     }
 }
 
 const sew = new Nama('Slave','Chimpanzee')
-console.log(sew.sayName())
+//console.log(sew.sayName())
 
 const batman3 = new NamaBiraa('batman','fatherless')
-console.log(batman3.fightCrime())
+//console.log(batman3.fightCrime())
+
+
+
+
+//////////////////iterables and iterators/////////////////
+const obj = {
+    [Symbol.iterator]: function(){
+        let step = 0
+        const iterator = {
+            next: function(){
+                step++;
+                if(step === 1){
+                    return {
+                        value: 'Hello',
+                        done: false
+                    }
+                }
+                else if(step === 2){
+                    return {
+                        value: 'World',
+                        done: false
+                    }
+                }
+                return {
+                    value: undefined,
+                    done: true
+                }
+            }
+        }
+        return iterator
+    }
+};
+
+// for (const word of obj)
+//     console.log(word)
+
+
+//generator functions   -  they simplify the iterable function creation
+function* generatorFunction(){
+    yield 'hey'
+    yield 'homie'
+}
+
+const gen = generatorFunction()
+
+// for (const word of gen)
+//     console.log(word)
+
+
+
+//Practice the asynchronicity of JS - Asynchronous callbacks
+function jsIsSync(){
+    console.log("Are you still waiting")
+    setTimeout((name)=>{
+        console.log('Waiting '+name)
+    },6000,"Aman")
+}
+
+function holdUP(){
+    console.log("You're a more patient person than me")
+}
+
+//jsIsSync();
+//holdUP();
+
+///synchronous callback function  -- bcs the function gets executed immediately
+function greet(name){
+    console.log(`Hello ${name}`)
+}
+
+function callFunc(callback){
+    let name = "Aman"
+    callback(name)
+}
+
+//callFunc(greet)
+
+
+///////Promises///////
+const promise = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        reject("Aman")
+    },0)
+})
+const onFulfillment = (name)=>{
+    console.log(name+ ": promise is fulfilled")
+}
+
+const onRejection =(name)=> {
+    console.log(name+ ": promise rejected")
+}
+
+promise.then(onFulfillment)
+        .catch(onRejection)
+
+
+        
