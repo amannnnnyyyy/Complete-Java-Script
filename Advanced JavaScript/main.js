@@ -318,3 +318,46 @@ async function parallelStart(){
 
 //parallelStart()
 //time taken 8 seconds but world displayed first
+
+
+
+
+
+
+
+
+///////////////////Data structures////////////////
+
+//////Stacks////////
+
+const arr = [1,2,3,4,5]
+function push(number){
+    arr.push(number)
+}
+
+function pop(){
+    return arr.pop()
+}
+
+arr.push(7);
+//console.log(arr)
+arr.pop();
+//console.log(arr)
+
+
+let palindrome = []
+let word = "hannah";
+let reverse = ""
+for(let i = 0 ; i<word.length;i++){
+    palindrome.push(word[i]);
+}
+
+for(let i = 0 ; i<word.length;i++){
+    reverse+= palindrome.pop();
+}  
+if(word === reverse){
+    console.log(word + ` is a palindrome`)
+}
+else{
+    console.log(reverse)
+}
