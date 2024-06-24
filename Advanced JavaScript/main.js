@@ -361,3 +361,182 @@ if(word === reverse){
 else{
     console.log(reverse)
 }
+
+
+const knapsack = [{
+    name:"one",
+    weight:1,
+    value:10
+},
+{
+    name:"two",
+    weight:2,
+    value:6
+},{
+    name:"three",
+    weight:3,
+    value:12
+},{
+    name:"four",
+    weight:4,
+    value:16
+}]
+
+const weightLimit = 24
+let temp_weight = 0;
+
+// knapsack.forEach((sack)=>{
+    
+// })
+// function knapsackProblem(knapsack,weightLimit){
+
+// }
+
+//Arrays
+
+function moveZerosToEnd(arr) {
+    const nonZeroValues = arr.filter(value => value !== 0);
+    const zeroCount = arr.length - nonZeroValues.length;
+    const zeros = Array(zeroCount).fill(0);
+    return nonZeroValues.concat(zeros);
+}
+
+  const array = [0, 1, 0, 3, 12];
+  const result = moveZerosToEnd(array);
+  console.log(result); // Output: [1, 3, 12, 0, 0]
+  
+const summing=(arr,summed =0)=>{       
+    arr.forEach(num=>summed+=num);     
+    return summed;                     
+}
+//O(n)
+const spliced = array.splice(2,3)
+console.log("Array spliced",spliced)
+console.log("Array: ",array)
+console.log(summing([1, 3, 12, 0, 15]))
+
+
+
+//Sets
+const sets = new Set();
+sets.add(4)
+sets.add("foo")
+sets.add("foo")
+
+for(set of sets){
+    console.log("set ",set)
+}
+
+
+
+//Maps
+const map = new Map();
+map.set("name","Aman")
+map.set("age",21)
+map.set("name","Aman2")
+map.set([1,2],"array")
+map.set([1,2],"second array")   // Adds another second array 
+map.set("name","Another name")  // changes name doesn't set new name
+for(let [key,value] of map){
+    console.log(key,value)
+}
+
+
+
+
+
+//Linked Lists
+class LinkedList{
+    constructor(){
+        this.head = null;
+        this.tail = null;
+    }
+
+    append(tail){
+        const newNode = {Value:tail, next:null}
+        if(this.tail)
+            this.tail.next = newNode;
+        this.tail = newNode;
+
+        if(!this.head)
+            this.head = newNode;
+    }
+
+    toArray(){
+        const elements = [];
+        while(this.head){
+            elements.push(this.head.Value)
+            this.head = this.head.next;
+        }
+        return elements;
+    }
+
+    prePend(head){
+        let newNode = {Value:head, next:this.head}
+        this.head = newNode;
+        if(!this.tail)
+            this.tail = newNode;
+    }
+
+    find(value){
+        if(!this.head)
+            return;
+        let curNode = this.head;
+        while(curNode){
+            if(curNode.Value === value)
+                return curNode;
+            curNode = curNode.next;
+        }
+    }
+
+    insertAfter(existingValue,newValue){
+        let curValue = this.find(existingValue)
+        if(!this.head)
+            return;
+        
+        if(curValue)
+        {
+            const newNode = {Value:newValue,next:curValue.next }
+            curValue.next = newNode;
+        }
+        
+    }
+
+
+    delete(value){
+        if(!this.head)
+            return;
+        
+        while(this.head && this.head.Value===value){
+            this.head = this.head.next
+        }
+
+        let curNode = this.head;
+
+        while(curNode.next){
+            if(curNode.next.Value === value)
+                {
+                    curNode.next = curNode.next.next;                }
+                else 
+                    curNode = curNode.next;
+        }
+
+        if(this.tail.value === value){
+            this.tail = curNode;
+        }
+    }
+}
+
+const checkLinkedList = new LinkedList();
+checkLinkedList.append(1);
+checkLinkedList.append(2);
+checkLinkedList.append("hello");
+checkLinkedList.prePend(0);
+checkLinkedList.prePend(true)
+checkLinkedList.prePend(true)
+checkLinkedList.insertAfter(1,3)
+//console.log("custom linked list : ",checkLinkedList.toArray())
+checkLinkedList.delete(true)
+console.log("find true : ",checkLinkedList.find(true))
+console.log("find  0",checkLinkedList.find(0))
+console.log("custom linked list : ",checkLinkedList.toArray())
