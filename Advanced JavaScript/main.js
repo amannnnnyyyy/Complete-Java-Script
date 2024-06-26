@@ -651,18 +651,7 @@ function breadthFirst(graph,value){
     }
 }
 
-function breadthFirstRecursive(graph,value){
-    const queue = [value];
-    while(queue.length){
-        const current = queue.shift();
-        console.log(current);
-        breadthFirstRecursive(graph,current);
-    }
-}
-
 breadthFirst(graph,'a')
-console.log("Recursive")
-breadthFirstRecursive(graph,'a')
 
 
 
