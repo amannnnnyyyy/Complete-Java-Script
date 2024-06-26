@@ -579,7 +579,7 @@ function binarySearchRecursive(arr,target,leftIndex=0,rightIndex=arr.length-1){
     
 }
 
-console.log("recursive:",binarySearchRecursive([-5,2,4,6,10],6))
+//console.log("recursive:",binarySearchRecursive([-5,2,4,6,10],6))
 
 
 
@@ -590,11 +590,12 @@ const graph = {
     c:['e'],
     d:['f'],
     e:[],
-    f:[]
+    f:[],
+    g:[]
 }
 
 // DFS
-depthFirstPrint(graph,'a')  //acebdf
+//depthFirstPrint(graph,'a')  //acebdf
 
 //left first
 function depthFirstPrint(graph,start){
@@ -608,7 +609,7 @@ function depthFirstPrint(graph,start){
     }
 
 }
-depthFirstRightFirstPrint(graph,'a')
+//depthFirstRightFirstPrint(graph,'a')
 //right first
 function depthFirstRightFirstPrint(graph,start){
     console.log("right first")
@@ -626,8 +627,8 @@ function depthFirstRightFirstPrint(graph,start){
 
 }
 
-console.log('recursive')
-depthFirstRecursive(graph,'a')
+//console.log('recursive')
+//depthFirstRecursive(graph,'a')
 
 function depthFirstRecursive(graph,value){
     console.log(value)
@@ -651,8 +652,55 @@ function breadthFirst(graph,value){
     }
 }
 
-breadthFirst(graph,'a')
+//breadthFirst(graph,'a')
+
+
+//has path
+function hasPathBreadthFirst(graph,value,destination){
+    console.log("breadth first")
+    const path = []
+    const queue = [value]
+    while (queue.length){
+        const current = queue.shift();
+        path.push(current)
+        if(current === destination){
+            return "Valid path: " + path
+        }
+        for (let neighbor of graph[current]){
+            queue.push(neighbor)
+        }
+    }
+    return `No valid path exists from ${value} to ${destination}`
+}
+
+//console.log(hasPathBreadthFirst(graph,'a','g'))
+
+
+const hasPathDepthFirst=(graph,source,destination)=>{
+    if(source == destination) return true;
+    for (let neighbor of graph[source])
+        if(hasPathDepthFirst(graph,neighbor,destination)===true) return true;
+    return false;
+}
+
+//console.log(hasPathDepthFirst(graph,'a','g'))
 
 
 
+//SLIDING WINDOW
+function findMaxSubOfThree(num,size){
+    if(size>num.length) return "Your size is too big";
+    let currentSum=0;
+    let maxSum = -Infinity;
+    for(let i=0 ; i < num.length;i++){
+        currentSum += num[i];
+        if(i>= (size-1))
+            {
+                maxSum = currentSum>maxSum ? currentSum : maxSum;
+                currentSum -= num[i - (size-1)];
+            }
+    }
+    return `Maximum found sum of size ${size} is ${maxSum}`;
+}
 
+console.log(findMaxSubOfThree([1,2,3,4,5,6,7,16,8],3))
