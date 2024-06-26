@@ -403,7 +403,7 @@ function moveZerosToEnd(arr) {
 
   const array = [0, 1, 0, 3, 12];
   const result = moveZerosToEnd(array);
-  console.log(result); // Output: [1, 3, 12, 0, 0]
+  //console.log(result); // Output: [1, 3, 12, 0, 0]
   
 const summing=(arr,summed =0)=>{       
     arr.forEach(num=>summed+=num);     
@@ -411,9 +411,9 @@ const summing=(arr,summed =0)=>{
 }
 //O(n)
 const spliced = array.splice(2,3)
-console.log("Array spliced",spliced)
-console.log("Array: ",array)
-console.log(summing([1, 3, 12, 0, 15]))
+// console.log("Array spliced",spliced)
+// console.log("Array: ",array)
+// console.log(summing([1, 3, 12, 0, 15]))
 
 
 
@@ -423,9 +423,9 @@ sets.add(4)
 sets.add("foo")
 sets.add("foo")
 
-for(set of sets){
-    console.log("set ",set)
-}
+// for(set of sets){
+//     console.log("set ",set)
+// }
 
 
 
@@ -437,9 +437,9 @@ map.set("name","Aman2")
 map.set([1,2],"array")
 map.set([1,2],"second array")   // Adds another second array 
 map.set("name","Another name")  // changes name doesn't set new name
-for(let [key,value] of map){
-    console.log(key,value)
-}
+// for(let [key,value] of map){
+//     console.log(key,value)
+// }
 
 
 
@@ -537,6 +537,133 @@ checkLinkedList.prePend(true)
 checkLinkedList.insertAfter(1,3)
 //console.log("custom linked list : ",checkLinkedList.toArray())
 checkLinkedList.delete(true)
-console.log("find true : ",checkLinkedList.find(true))
-console.log("find  0",checkLinkedList.find(0))
-console.log("custom linked list : ",checkLinkedList.toArray())
+// console.log("find true : ",checkLinkedList.find(true))
+// console.log("find  0",checkLinkedList.find(0))
+// console.log("custom linked list : ",checkLinkedList.toArray())
+
+
+//Binary search
+function binarySearch(arr,target){
+    let leftIndex = 0;
+    let rightIndex = arr.length-1;
+    while(leftIndex <= rightIndex){
+        let middleIndex = Math.floor((leftIndex + rightIndex)/2);
+        if(target === arr[middleIndex])
+            return middleIndex;
+        else if(target < arr[middleIndex]){
+            rightIndex = middleIndex - 1;
+        }
+        else if(target > arr[middleIndex]){
+            leftIndex = middleIndex + 1;
+        }
+    }
+    return -1;
+}
+
+console.log("Normal: ",binarySearch([-5,2,4,6,10],6))
+
+
+
+//Binary Recursive
+function binarySearchRecursive(arr,target,leftIndex=0,rightIndex=arr.length-1){
+    let middleIndex = Math.floor((leftIndex + rightIndex)/2);
+    if(leftIndex>rightIndex) return -1;
+    else if(target === arr[middleIndex]) return middleIndex;
+    else if(target > arr[middleIndex]) {
+        return binarySearchRecursive(arr,target,middleIndex+1,rightIndex)
+    }
+    else if (target< arr[middleIndex]){
+        return binarySearchRecursive(arr,target,leftIndex,middleIndex-1)
+    }
+    return -1;
+    
+}
+
+console.log("recursive:",binarySearchRecursive([-5,2,4,6,10],6))
+
+
+
+//Graph
+const graph = {
+    a:['b','c'],
+    b:['d'],
+    c:['e'],
+    d:['f'],
+    e:[],
+    f:[]
+}
+
+// DFS
+depthFirstPrint(graph,'a')  //acebdf
+
+//left first
+function depthFirstPrint(graph,start){
+    const stack = [start]
+    while (stack.length){
+        const current = stack.pop()
+        console.log(current);
+        for (let neighbor of graph[current]){
+            stack.push(neighbor)
+        }
+    }
+
+}
+depthFirstRightFirstPrint(graph,'a')
+//right first
+function depthFirstRightFirstPrint(graph,start){
+    console.log("right first")
+    const stack = [start]
+    while (stack.length){
+        const current = stack.pop()
+        if(current)
+            console.log(current);
+        
+        if(graph[current])
+            for (let i=graph[current].length;i>=0;i--){
+                stack.push(graph[current][i])
+            }
+    }
+
+}
+
+console.log('recursive')
+depthFirstRecursive(graph,'a')
+
+function depthFirstRecursive(graph,value){
+    console.log(value)
+    for (let element of graph[value])
+        depthFirstRecursive(graph,element)
+    
+}
+
+
+
+//breadth first
+function breadthFirst(graph,value){
+    console.log("breadth first")
+    const queue = [value]
+    while (queue.length){
+        const current = queue.shift();
+        console.log(current)
+        for (let neighbor of graph[current]){
+            queue.push(neighbor)
+        }
+    }
+}
+
+function breadthFirstRecursive(graph,value){
+    const queue = [value];
+    while(queue.length){
+        const current = queue.shift();
+        console.log(current);
+        breadthFirstRecursive(graph,current);
+    }
+}
+
+breadthFirst(graph,'a')
+console.log("Recursive")
+breadthFirstRecursive(graph,'a')
+
+
+
+
